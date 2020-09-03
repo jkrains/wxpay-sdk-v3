@@ -1,5 +1,7 @@
 package com.jk.wxpay.v3.commons.util;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,24 +23,26 @@ public class PemUtils {
    * @throws NoSuchAlgorithmException
    * @throws InvalidKeySpecException
    */
-  public static PrivateKey loadPrivateKey(InputStream inputStream) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+  public static PrivateKey loadPrivateKey(InputStream inputStream) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, IllegalArgumentException {
 
-      ByteArrayOutputStream array = new ByteArrayOutputStream();
-      byte[] buffer = new byte[1024];
-      int length;
-      while ((length = inputStream.read(buffer)) != -1) {
-        array.write(buffer, 0, length);
+      if (inputStream != null) {
+          ByteArrayOutputStream array = new ByteArrayOutputStream();
+          byte[] buffer = new byte[1024];
+          int length;
+          while ((length = inputStream.read(buffer)) != -1) {
+              array.write(buffer, 0, length);
+          }
+
+          String privateKey = array.toString("utf-8")
+                  .replace("-----BEGIN PRIVATE KEY-----", "")
+                  .replace("-----END PRIVATE KEY-----", "")
+                  .replaceAll("\\s+", "");
+
+          KeyFactory kf = KeyFactory.getInstance("RSA");
+          return kf.generatePrivate( new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
+      } else {
+          throw new IllegalArgumentException("inputStream is null");
       }
-
-      String privateKey = array.toString("utf-8")
-          .replace("-----BEGIN PRIVATE KEY-----", "")
-          .replace("-----END PRIVATE KEY-----", "")
-          .replaceAll("\\s+", "");
-
-      KeyFactory kf = KeyFactory.getInstance("RSA");
-      return kf.generatePrivate(
-          new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
-
   }
 
   /**
@@ -47,11 +51,14 @@ public class PemUtils {
    * @return
    * @throws CertificateException
    */
-  public static X509Certificate loadCertificate(InputStream inputStream) throws CertificateException {
-      CertificateFactory cf = CertificateFactory.getInstance("X509");
-      X509Certificate cert = (X509Certificate) cf.generateCertificate(inputStream);
-      cert.checkValidity();
-      return cert;
-
+  public static X509Certificate loadCertificate(InputStream inputStream) throws CertificateException, IllegalArgumentException {
+      if (inputStream != null) {
+          CertificateFactory cf = CertificateFactory.getInstance("X509");
+          X509Certificate cert = (X509Certificate) cf.generateCertificate(inputStream);
+          cert.checkValidity();
+          return cert;
+      } else {
+          throw new IllegalArgumentException("inputStream is null");
+      }
   }
 }
