@@ -5,7 +5,10 @@ import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.ValidationUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpRequestWrapper;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -71,9 +74,28 @@ public class FilterUtils {
             }
         }
     }
+
+    public static void convertToRepeatableResponseEntity(CloseableHttpResponse response)
+            throws IOException {
+        HttpEntity entity = response.getEntity();
+        if (entity != null) {
+            response.setEntity(new BufferedHttpEntity(entity));
+        }
+    }
+
+    public static void convertToRepeatableRequestEntity(HttpRequestWrapper request) throws IOException {
+        if (request instanceof HttpEntityEnclosingRequest) {
+            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
+            if (entity != null) {
+                ((HttpEntityEnclosingRequest) request).setEntity(new BufferedHttpEntity(entity));
+            }
+        }
+    }
+
     public static CloseableHttpResponse checkResponse(X509Certificate certificate, CloseableHttpResponse response) {
         validateParameters(response);
         try {
+            convertToRepeatableResponseEntity(response);
             String timestamp = response.getFirstHeader(H_W_TIMESTAMP).getValue();
             String nonce = response.getFirstHeader(H_W_NONCE).getValue();
             String serial = response.getFirstHeader(H_W_SERIAL).getValue();

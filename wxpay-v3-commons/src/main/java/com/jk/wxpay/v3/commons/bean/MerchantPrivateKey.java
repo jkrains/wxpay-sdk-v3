@@ -10,7 +10,7 @@ public class MerchantPrivateKey {
     private String serialNumber;
     private PrivateKey privateKey;
 
-    public MerchantPrivateKey(String merchantId, String serialNumber, PrivateKey privateKey) {
+    public MerchantPrivateKey(String serialNumber, PrivateKey privateKey) {
         this.serialNumber = serialNumber;
         this.privateKey = privateKey;
     }

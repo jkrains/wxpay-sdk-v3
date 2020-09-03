@@ -44,11 +44,11 @@ public class WxPayApiContextBuilder {
         }
 
         if (merchantPrivateKeyManager == null) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Merchant private key service is null");
+            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Merchant private key manager is null");
         }
 
         if (wxCertificatesManager == null) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Wx certificates service is null");
+            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Wx certificates manager is null");
         }
 
         CloseableHttpClientBuilder builder = new CloseableHttpClientBuilder();

@@ -41,22 +41,7 @@ public class WxPayExchangeFilter implements ClientExecChain {
         this.certificatesService = certificatesService;
     }
 
-    protected void convertToRepeatableResponseEntity(CloseableHttpResponse response)
-            throws IOException {
-        HttpEntity entity = response.getEntity();
-        if (entity != null) {
-            response.setEntity(new BufferedHttpEntity(entity));
-        }
-    }
 
-    protected void convertToRepeatableRequestEntity(HttpRequestWrapper request) throws IOException {
-        if (request instanceof HttpEntityEnclosingRequest) {
-            HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
-            if (entity != null) {
-                ((HttpEntityEnclosingRequest) request).setEntity(new BufferedHttpEntity(entity));
-            }
-        }
-    }
 
     @Override
     public CloseableHttpResponse execute(HttpRoute route, HttpRequestWrapper request, HttpClientContext clientContext,
