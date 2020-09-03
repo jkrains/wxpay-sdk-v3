@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor.api.direct.query;
+package com.jk.wxpay.v3.reactor.api.direct.query;
 
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
 import reactor.core.publisher.Mono;

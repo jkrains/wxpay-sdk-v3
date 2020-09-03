@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor.service;
+package com.jk.wxpay.v3.reactor.service;
 
 
 import com.jk.wxpay.v3.commons.bean.MerchantInfo;

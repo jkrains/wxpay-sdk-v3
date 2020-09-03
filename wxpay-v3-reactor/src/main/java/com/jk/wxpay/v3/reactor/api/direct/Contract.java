@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor.api.direct;
+package com.jk.wxpay.v3.reactor.api.direct;
 
 public interface Contract {
     String PATH_APP_PREPAY = "/v3/pay/transactions/app";

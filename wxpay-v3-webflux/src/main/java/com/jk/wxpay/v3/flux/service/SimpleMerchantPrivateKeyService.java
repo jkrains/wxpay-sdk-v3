@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.flux.service;
 
 import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
-import com.jk.wxpay.v3.flux.reactor.service.MerchantPrivateKeyManager;
+import com.jk.wxpay.v3.reactor.service.MerchantPrivateKeyManager;
 import reactor.core.publisher.Mono;
 
 /**

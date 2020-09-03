@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor;
+package com.jk.wxpay.v3.reactor;
 
 /**
  * 定义了一些常用的常量

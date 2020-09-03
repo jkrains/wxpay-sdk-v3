@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.flux.service;
 
-import com.jk.wxpay.v3.flux.reactor.service.WxCertificatesManager;
+import com.jk.wxpay.v3.reactor.service.WxCertificatesManager;
 import reactor.core.publisher.Mono;
 
 import java.security.cert.X509Certificate;

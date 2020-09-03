@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor.api.direct.prepay;
+package com.jk.wxpay.v3.reactor.api.direct.prepay;
 
 import reactor.core.publisher.Mono;
 

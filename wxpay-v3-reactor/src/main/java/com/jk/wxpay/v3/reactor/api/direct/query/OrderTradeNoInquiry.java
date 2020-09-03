@@ -1,10 +1,10 @@
-package com.jk.wxpay.v3.flux.reactor.api.direct.query;
+package com.jk.wxpay.v3.reactor.api.direct.query;
 
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
-import com.jk.wxpay.v3.flux.reactor.Constants;
-import com.jk.wxpay.v3.flux.reactor.api.direct.Contract;
-import com.jk.wxpay.v3.flux.reactor.request.ApiContext;
-import com.jk.wxpay.v3.flux.reactor.request.SingleRequester;
+import com.jk.wxpay.v3.reactor.Constants;
+import com.jk.wxpay.v3.reactor.api.direct.Contract;
+import com.jk.wxpay.v3.reactor.request.ApiContext;
+import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;

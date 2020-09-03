@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.flux.reactor.request;
+package com.jk.wxpay.v3.reactor.request;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
