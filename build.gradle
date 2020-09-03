@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'com.jk.wxpay'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':wxpay-v3-commons')
+    implementation project(':wxpay-v3-reactor')
+    implementation project(':wxpay-v3-webflux')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+    useJUnitPlatform()
+}

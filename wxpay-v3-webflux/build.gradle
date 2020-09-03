@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.jk.wxpay'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':wxpay-v3-commons')
+    implementation project(':wxpay-v3-reactor')
+    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "org.springframework:spring-webflux:5.2.7.RELEASE"
+
+}
