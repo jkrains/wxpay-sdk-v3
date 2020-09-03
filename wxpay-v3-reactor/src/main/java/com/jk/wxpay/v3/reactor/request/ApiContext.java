@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.reactor.request;
 
 /**
- * client context 接口
+ * client context 接口。
  */
 public interface ApiContext {
     /**

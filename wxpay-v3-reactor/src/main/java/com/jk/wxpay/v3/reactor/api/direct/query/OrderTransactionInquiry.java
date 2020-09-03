@@ -1,8 +1,7 @@
 package com.jk.wxpay.v3.reactor.api.direct.query;
 
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
-import com.jk.wxpay.v3.reactor.Constants;
-import com.jk.wxpay.v3.reactor.api.direct.Contract;
+import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
@@ -21,7 +20,7 @@ public class OrderTransactionInquiry extends SingleRequester<Void, OrderQueryRes
      * @param apiContext
      */
     public OrderTransactionInquiry(ApiContext apiContext) {
-        super(apiContext, Contract.PATH_ORDER_GET_TRANSACTION, Void.class, OrderQueryResult.class);
+        super(apiContext, Constants.PATH_ORDER_GET_TRANSACTION, Void.class, OrderQueryResult.class);
     }
 
     @Override

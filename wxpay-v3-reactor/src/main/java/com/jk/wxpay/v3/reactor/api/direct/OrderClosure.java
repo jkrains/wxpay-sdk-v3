@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.reactor.api.direct;
 
 import com.jk.wxpay.v3.commons.bean.direct.MerchantId;
-import com.jk.wxpay.v3.reactor.Constants;
+import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
@@ -27,7 +27,7 @@ public class OrderClosure extends SingleRequester<MerchantId, Void> {
      * @param apiContext
      */
     public OrderClosure(ApiContext apiContext) {
-        super(apiContext, Contract.PATH_ORDER_CLOSE, MerchantId.class, Void.class);
+        super(apiContext, Constants.PATH_ORDER_CLOSE, MerchantId.class, Void.class);
     }
 
     /**

@@ -2,4 +2,5 @@ rootProject.name = 'wxpay-sdk-v3'
 include 'wxpay-v3-commons'
 include 'wxpay-v3-reactor'
 include 'wxpay-v3-webflux'
+include 'wxpay-v3-block'
 

@@ -2,8 +2,7 @@ package com.jk.wxpay.v3.reactor.api.direct.prepay;
 
 import com.jk.wxpay.v3.commons.bean.direct.JSAPIPrepayOrder;
 import com.jk.wxpay.v3.commons.bean.direct.result.PrepayResult;
-import com.jk.wxpay.v3.reactor.Constants;
-import com.jk.wxpay.v3.reactor.api.direct.Contract;
+import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
@@ -21,7 +20,7 @@ public class JsApiPrepay extends SingleRequester<JSAPIPrepayOrder, PrepayResult>
 
      */
     public JsApiPrepay(ApiContext apiContext) {
-        super(apiContext, Contract.PATH_JSAPI_PREPAY, JSAPIPrepayOrder.class, PrepayResult.class);
+        super(apiContext, Constants.PATH_JSAPI_PREPAY, JSAPIPrepayOrder.class, PrepayResult.class);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.AuthorizationUtils;
 import com.jk.wxpay.v3.flux.http.filter.extractor.RequestExtractor;
-import com.jk.wxpay.v3.reactor.Constants;
+import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.reactor.service.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.reactor.service.WxCertificatesManager;
 import org.springframework.http.client.reactive.ClientHttpRequest;
