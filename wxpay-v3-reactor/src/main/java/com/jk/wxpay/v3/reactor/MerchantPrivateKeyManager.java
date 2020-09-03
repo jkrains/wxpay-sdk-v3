@@ -1,7 +1,6 @@
-package com.jk.wxpay.v3.reactor.service;
+package com.jk.wxpay.v3.reactor;
 
 
-import com.jk.wxpay.v3.commons.bean.MerchantInfo;
 import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
 import reactor.core.publisher.Mono;
 
