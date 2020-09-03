@@ -16,13 +16,9 @@ import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.Instant;
 
-public class FilterUtils {
+import static com.jk.wxpay.v3.commons.Constants.*;
 
-    public static final String H_REQUEST_ID  = "Request-ID";
-    public static final String H_W_SERIAL    = "Wechatpay-Serial";
-    public static final String H_W_SIGNATURE = "Wechatpay-Signature";
-    public static final String H_W_TIMESTAMP = "Wechatpay-Timestamp";
-    public static final String H_W_NONCE     = "Wechatpay-Nonce";
+public class FilterUtils {
 
     public static String getSchema() {
         return "WECHATPAY2-SHA256-RSA2048";

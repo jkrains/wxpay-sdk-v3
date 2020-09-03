@@ -4,6 +4,10 @@ package com.jk.wxpay.v3.commons;
  * 定义了一些常用的常量
  */
 public interface Constants {
+    /**
+     * 支付的url.正式。
+     */
+    String PAY_HOST_URL = "https://api.mch.weixin.qq.com";
 
     String PATH_APP_PREPAY = "/v3/pay/transactions/app";
     String PATH_JSAPI_PREPAY = "/v3/pay/transactions/jsapi";
@@ -13,6 +17,15 @@ public interface Constants {
     String PATH_ORDER_GET_TRANSACTION = "/v3/pay/transactions/id";
     String PATH_ORDER_GET_OUT_TRADE_NO = "/v3/pay/transactions/out-trade-no";
     String PATH_ORDER_CLOSE = "/v3/pay/transactions/out-trade-no";
+
+    /**
+     * 如下定义了微信返回的header内容。
+     */
+    public static final String H_REQUEST_ID  = "Request-ID";
+    public static final String H_W_SERIAL    = "Wechatpay-Serial";
+    public static final String H_W_SIGNATURE = "Wechatpay-Signature";
+    public static final String H_W_TIMESTAMP = "Wechatpay-Timestamp";
+    public static final String H_W_NONCE     = "Wechatpay-Nonce";
 
     /**
      * 微信支付基本域名后缀

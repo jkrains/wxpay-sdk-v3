@@ -3,4 +3,5 @@ include 'wxpay-v3-commons'
 include 'wxpay-v3-reactor'
 include 'wxpay-v3-webflux'
 include 'wxpay-v3-block'
+include 'wxpay-v3-apache-httpclient'
 

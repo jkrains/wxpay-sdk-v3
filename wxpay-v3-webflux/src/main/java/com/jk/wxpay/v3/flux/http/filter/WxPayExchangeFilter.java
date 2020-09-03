@@ -6,8 +6,8 @@ import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.AuthorizationUtils;
 import com.jk.wxpay.v3.flux.http.filter.extractor.RequestExtractor;
 import com.jk.wxpay.v3.commons.Constants;
-import com.jk.wxpay.v3.reactor.service.MerchantPrivateKeyManager;
-import com.jk.wxpay.v3.reactor.service.WxCertificatesManager;
+import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
+import com.jk.wxpay.v3.reactor.WxCertificatesManager;
 import org.springframework.http.client.reactive.ClientHttpRequest;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -27,11 +27,6 @@ import java.security.SignatureException;
  */
 public class WxPayExchangeFilter implements ExchangeFilterFunction {
 
-    public static final String H_REQUEST_ID  = "Request-ID";
-    public static final String H_W_SERIAL    = "Wechatpay-Serial";
-    public static final String H_W_SIGNATURE = "Wechatpay-Signature";
-    public static final String H_W_TIMESTAMP = "Wechatpay-Timestamp";
-    public static final String H_W_NONCE     = "Wechatpay-Nonce";
 
     private final MerchantPrivateKeyManager merchantService;
     private final WxCertificatesManager certificatesService;

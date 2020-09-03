@@ -15,5 +15,5 @@ dependencies {
     implementation project(':wxpay-v3-commons')
     implementation "io.projectreactor:reactor-core:3.3.6.RELEASE"
     
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }

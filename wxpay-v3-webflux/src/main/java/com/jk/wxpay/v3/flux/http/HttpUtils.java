@@ -11,6 +11,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class HttpUtils {
+    private static final String os = System.getProperty("os.name") + "/" + System.getProperty("os.version");
+    private static final String version = System.getProperty("java.version");
 
     private static DefaultDataBufferFactory defaultDataBufferFactory;
 
@@ -72,5 +74,17 @@ public class HttpUtils {
      */
     public static Mono<DataBuffer> toDataBuffer(ClientResponse response) {
         return listToDataBuffer(response.body(BodyExtractors.toDataBuffers()).collectList());
+    }
+
+    /**
+     * 获取UserAgent.
+     * @return
+     */
+    public static String getUserAgent() {
+        String userAgent = String.format(
+                "wxpay-webflux/%s (%s) Java/%s", HttpUtils.class.getPackage().getImplementationVersion(),
+                os,
+                version == null ? "Unknown" : version);
+        return userAgent;
     }
 }

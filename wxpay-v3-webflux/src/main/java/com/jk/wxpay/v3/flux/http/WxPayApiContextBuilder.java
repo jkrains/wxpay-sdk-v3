@@ -1,11 +1,12 @@
 package com.jk.wxpay.v3.flux.http;
 
+import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.flux.http.filter.WxPayExchangeFilter;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
-import com.jk.wxpay.v3.reactor.service.MerchantPrivateKeyManager;
-import com.jk.wxpay.v3.reactor.service.WxCertificatesManager;
+import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
+import com.jk.wxpay.v3.reactor.WxCertificatesManager;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -20,18 +21,19 @@ import java.util.List;
  */
 public class WxPayApiContextBuilder {
 
-    private String baseUrl = "https://api.mch.weixin.qq.com";
+    private String hostUrl = Constants.PAY_HOST_URL;
+    private MerchantPrivateKeyManager merchantPrivateKeyManager;
+    private WxCertificatesManager wxCertificatesManager;
+
     private List<ExchangeFilterFunction> filterFunctions;
-    private MerchantPrivateKeyManager merchantPrivateKeyService;
-    private WxCertificatesManager wxCertificatesService;
+
 
     public WxPayApiContextBuilder() {
         filterFunctions = new ArrayList<>();
     }
 
-    public WxPayApiContextBuilder setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-        return this;
+    public void setHostUrl(String hostUrl) {
+        this.hostUrl = hostUrl;
     }
 
     public WxPayApiContextBuilder addFilterFunction(ExchangeFilterFunction filterFunction) {
@@ -39,12 +41,12 @@ public class WxPayApiContextBuilder {
         return this;
     }
 
-    public void setMerchantPrivateKeyService(MerchantPrivateKeyManager merchantPrivateKeyService) {
-        this.merchantPrivateKeyService = merchantPrivateKeyService;
+    public void setMerchantPrivateKeyManager(MerchantPrivateKeyManager merchantPrivateKeyManager) {
+        this.merchantPrivateKeyManager = merchantPrivateKeyManager;
     }
 
-    public void setWxCertificatesService(WxCertificatesManager wxCertificatesService) {
-        this.wxCertificatesService = wxCertificatesService;
+    public void setWxCertificatesManager(WxCertificatesManager wxCertificatesManager) {
+        this.wxCertificatesManager = wxCertificatesManager;
     }
 
     /**
@@ -53,22 +55,22 @@ public class WxPayApiContextBuilder {
      * @return
      */
     public ApiContext build() {
-        if (this.baseUrl == null || "".equals(this.baseUrl)) {
+        if (this.hostUrl == null || "".equals(this.hostUrl)) {
             throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "BaseUrl is null or empty.");
         }
 
-        if (merchantPrivateKeyService == null) {
+        if (merchantPrivateKeyManager == null) {
             throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Merchant private key service is null");
         }
 
-        if (wxCertificatesService == null) {
+        if (wxCertificatesManager == null) {
             throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "wx certificates service is null");
         }
 
-        WxPayExchangeFilter authTokenExchangeFilter = new WxPayExchangeFilter(merchantPrivateKeyService, wxCertificatesService);
+        WxPayExchangeFilter authTokenExchangeFilter = new WxPayExchangeFilter(merchantPrivateKeyManager, wxCertificatesManager);
         WebClient webClient = WebClient.builder()
                 .filters(c -> c.addAll(this.filterFunctions))
-                .baseUrl(this.baseUrl).filter(authTokenExchangeFilter).build();
+                .baseUrl(this.hostUrl).filter(authTokenExchangeFilter).build();
         HttpRequestClient httpRequestClient = new HttpRequestClient(webClient);
         HttpApiContext httpApiContext = new HttpApiContext(httpRequestClient);
         return httpApiContext;
