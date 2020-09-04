@@ -18,8 +18,7 @@ ext {
 }
 
 dependencies {
-
-//    implementation project(':wxpay-v3-commons')
+    
     implementation project(':wxpay-v3-block')
 
     implementation "org.apache.httpcomponents:httpclient:$httpclient_version"
