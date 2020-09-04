@@ -10,7 +10,7 @@ public interface WxErrorCode {
     String ILLEGAL_ARG = "IllegalArg";
     String WX_RESPONSE_INVALID = "WxResponseInvalid";
     String NOT_SUPPORTED_TYPE = "NotSupportedType";
-
+    String NOT_FOUND_RESOURCE = "NotFoundResource";
 
     /**
      * 如下定义微信返回的错误码

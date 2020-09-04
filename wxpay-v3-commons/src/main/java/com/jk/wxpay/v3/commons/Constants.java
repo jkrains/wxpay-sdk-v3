@@ -17,7 +17,10 @@ public interface Constants {
     String PATH_ORDER_GET_TRANSACTION = "/v3/pay/transactions/id";
     String PATH_ORDER_GET_OUT_TRADE_NO = "/v3/pay/transactions/out-trade-no";
     String PATH_ORDER_CLOSE = "/v3/pay/transactions/out-trade-no";
-
+    /**
+     * wx 证书下载地址。
+     */
+    String PATH_CERTIFICATES = "/v3/certificates";
     /**
      * 如下定义了微信返回的header内容。
      */
