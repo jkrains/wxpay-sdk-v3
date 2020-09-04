@@ -25,13 +25,13 @@ import java.security.SignatureException;
 /**
  * 拦截器，用于拦截 发送的数据和返回的数据。
  */
-public class WxPayExchangeFilter implements ExchangeFilterFunction {
+public class ExchangeFilter implements ExchangeFilterFunction {
 
 
     private final MerchantPrivateKeyManager merchantService;
     private final WxCertificatesManager certificatesService;
 
-    public WxPayExchangeFilter(MerchantPrivateKeyManager merchantService, WxCertificatesManager certificatesService) {
+    public ExchangeFilter(MerchantPrivateKeyManager merchantService, WxCertificatesManager certificatesService) {
         this.merchantService = merchantService;
         this.certificatesService = certificatesService;
     }
