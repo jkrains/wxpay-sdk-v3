@@ -7,6 +7,12 @@
 
 本SDK支持多商户模式。
 
+
+
+[toc]
+
+
+
 ## 同步API
 
 用于传统命令式编程。 可以用于Spring MVC 或其他框架。目前httpClient 采用Apache-httpClient。
