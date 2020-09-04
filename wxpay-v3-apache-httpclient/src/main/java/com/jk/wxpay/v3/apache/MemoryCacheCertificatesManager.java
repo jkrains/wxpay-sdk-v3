@@ -45,28 +45,31 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
      */
     @Override
     public X509Certificate getValidCertificate(String mchId) {
-        X509Certificate validCertificate;
+
         List<X509Certificate> certificateList = certMapList.get(mchId);
-        if (certificateList != null) {
-            validCertificate = getValidCertificate(certificateList);
-            if (validCertificate != null) {
-                return validCertificate;
+        if (certificateList == null) {
+            return updateAndGet(mchId);
+        } else {
+            X509Certificate certificate = getValidCertificate(certificateList);
+            if (certificate == null) {
+                certificate = updateAndGet(mchId);
+            }
+            return certificate;
+        }
+    }
+
+    private X509Certificate updateAndGet(String mchId) {
+        List<X509Certificate> list = updateCertificates(mchId);
+        if (list != null) {
+            this.certMapList.put(mchId, list);
+            X509Certificate certificate = getValidCertificate(list);
+            if (certificate != null) {
+                return certificate;
             } else {
-                // update 证书。
-                updateCertificates(mchId);
+                throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
             }
         } else {
-            // update 证书
-            updateCertificates(mchId);
-        }
-
-        // 再次从列表中获取一次证书。
-        certificateList = certMapList.get(mchId);
-        validCertificate = getValidCertificate(certificateList);
-        if (validCertificate != null) {
-            return validCertificate;
-        } else {
-            throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "valid wx certificates not found");
+            throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
         }
     }
 
@@ -74,16 +77,14 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
      * 更新证书
      * @param mchId
      */
-    private void updateCertificates(String mchId) {
+    private List<X509Certificate> updateCertificates(String mchId) {
         EncryptCertificateEntity certificates = this.certificatesDownloader.getCertificates(mchId);
         CertificatesDecoder decoder = new CertificatesDecoder(this.privateKeyManager.getApiV3Key(mchId), certificates);
         List<X509Certificate> list = decoder.decodeToX509List();
-        if (list != null) {
-            this.certMapList.put(mchId, list);
-        }
+        return list;
     }
 
-    /**
+    /**   
      * 在列表中获取有效的证书， 如果无有效证书，则返回null.
      * @param certificateList
      * @return

@@ -1,6 +1,7 @@
 package com.jk.wxpay.v3.flux;
 
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
+import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.flux.http.ApiContextBuilder;
 import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
@@ -42,13 +43,25 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
         return Mono.just(mchId).publishOn(Schedulers.parallel()).flatMap(mid -> {
             List<X509Certificate> certificateList = certMapList.get(mchId);
             if (certificateList == null) {
-                return updateCertificates(mchId).map(list -> {
-                    this.certMapList.put(mchId, list);
-                    return getValidCertificate(list);
-                });
+                return updateAndGet(mchId);
             } else {
                 X509Certificate certificate = getValidCertificate(certificateList);
+                if (certificate == null) {
+                    return updateAndGet(mchId);
+                }
                 return Mono.just(certificate);
+            }
+        });
+    }
+
+    private Mono<X509Certificate> updateAndGet(String mchId) {
+        return updateCertificates(mchId).map(list -> {
+            this.certMapList.put(mchId, list);
+            X509Certificate certificate = getValidCertificate(list);
+            if (certificate != null) {
+                return certificate;
+            } else {
+                throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
             }
         });
     }
@@ -68,7 +81,7 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
     }
 
     /**
-     * 在列表中获取有效的证书， 如果无有效证书，则抛出异常。
+     * 在列表中获取有效的证书， 如果无有效证书，则返回null。
      * @param certificateList
      * @return
      */
@@ -85,6 +98,6 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
                 }
             }
         }
-        throw new WxErrorException("Error", "cannot get valid certificates");
+        return null;
     }
 }
