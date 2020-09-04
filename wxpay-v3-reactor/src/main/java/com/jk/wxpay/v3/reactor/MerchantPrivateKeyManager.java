@@ -15,5 +15,5 @@ public interface MerchantPrivateKeyManager {
      * @return
      */
     Mono<MerchantPrivateKey> getPrivateKey(String mchId);
-
+    Mono<String> getApiV3Key(String mchId);
 }

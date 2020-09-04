@@ -105,6 +105,10 @@ public class SingleRequester<T, R> {
         return this.request(RequestMethod.GET, subPath, params, null);
     }
 
+    public Mono<R> get(Map<String, java.lang.Object> params) {
+        return this.request(RequestMethod.GET, null, params, null);
+    }
+
     public Mono<R> get() {
         return this.get(null, null);
     }
