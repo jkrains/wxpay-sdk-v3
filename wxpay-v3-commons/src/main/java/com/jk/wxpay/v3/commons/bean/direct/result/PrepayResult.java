@@ -29,4 +29,11 @@ public class PrepayResult {
         this.prepayId = prepayId;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "PrepayResult{" +
+                "prepayId='" + prepayId + '\'' +
+                '}';
+    }
 }

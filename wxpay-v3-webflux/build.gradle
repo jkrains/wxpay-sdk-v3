@@ -19,6 +19,7 @@ ext {
 dependencies {
     implementation project(':wxpay-v3-commons')
     implementation project(':wxpay-v3-reactor')
+    
     implementation "org.slf4j:slf4j-api:$slf4j_version"
     implementation "com.google.code.gson:gson:$gson_version"
 

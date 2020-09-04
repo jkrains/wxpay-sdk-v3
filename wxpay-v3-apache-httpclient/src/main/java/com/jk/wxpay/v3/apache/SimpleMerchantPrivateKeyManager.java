@@ -22,11 +22,11 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
      */
     private String privateKeyPath = "pem/wx_key.pem";
     private MerchantPrivateKey mchPrivateKey;
-
+    private String apiV3Key;
     /**
      * 商户证书的序列号
      */
-    private String certificatesSerialNumber;
+    private String certSerialNumber;
 
     public SimpleMerchantPrivateKeyManager() {
     }
@@ -36,13 +36,14 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         return this;
     }
 
-    public SimpleMerchantPrivateKeyManager setCertificatesSerialNumber(String certificatesSerialNumber) {
-        this.certificatesSerialNumber = certificatesSerialNumber;
+    public SimpleMerchantPrivateKeyManager setCertSerialNumber(String certSerialNumber) {
+        this.certSerialNumber = certSerialNumber;
         return this;
     }
 
-    public void setMchPrivateKey(MerchantPrivateKey mchPrivateKey) {
-        this.mchPrivateKey = mchPrivateKey;
+    public SimpleMerchantPrivateKeyManager setApiV3Key(String apiV3Key) {
+        this.apiV3Key = apiV3Key;
+        return this;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
             if (this.mchPrivateKey == null) {
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream(privateKeyPath);
                 PrivateKey privateKey = PemUtils.loadPrivateKey(inputStream);
-                this.mchPrivateKey = new MerchantPrivateKey(this.certificatesSerialNumber, privateKey);
+                this.mchPrivateKey = new MerchantPrivateKey(this.certSerialNumber, privateKey);
             }
 
             return this.mchPrivateKey;
@@ -62,6 +63,6 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
 
     @Override
     public String getApiV3Key(String mchId) {
-        return null;
+        return this.apiV3Key;
     }
 }

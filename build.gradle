@@ -14,7 +14,13 @@ repositories {
 
 dependencies {
     implementation project(':wxpay-v3-commons')
+
     implementation project(':wxpay-v3-reactor')
+    implementation project(':wxpay-v3-webflux')
+
+    implementation project(':wxpay-v3-block')
+    implementation project(':wxpay-v3-apache-httpclient')
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

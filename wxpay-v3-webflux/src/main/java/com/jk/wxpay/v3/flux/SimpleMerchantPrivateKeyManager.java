@@ -26,7 +26,7 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
     /**
      * 商户证书的序列号
      */
-    private String certificatesSerialNumber;
+    private String certSerialNumber;
 
     public SimpleMerchantPrivateKeyManager() {
     }
@@ -36,8 +36,8 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         return this;
     }
 
-    public SimpleMerchantPrivateKeyManager setCertificatesSerialNumber(String certificatesSerialNumber) {
-        this.certificatesSerialNumber = certificatesSerialNumber;
+    public SimpleMerchantPrivateKeyManager setCertSerialNumber(String certSerialNumber) {
+        this.certSerialNumber = certSerialNumber;
         return this;
     }
 
@@ -57,7 +57,7 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
             if (this.mchPrivateKey == null) {
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream(privateKeyPath);
                 PrivateKey privateKey = PemUtils.loadPrivateKey(inputStream);
-                this.mchPrivateKey = new MerchantPrivateKey(this.certificatesSerialNumber, privateKey);
+                this.mchPrivateKey = new MerchantPrivateKey(this.certSerialNumber, privateKey);
             }
             return Mono.just(this.mchPrivateKey);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | IllegalArgumentException | IOException e) {

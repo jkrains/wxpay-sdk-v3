@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 自动更新证书管理器，更新证书存储在内存中
+ */
 public class MemoryCacheCertificatesManager implements WxCertificatesManager {
 
     private final CertificatesDownloader certificatesDownloader;
