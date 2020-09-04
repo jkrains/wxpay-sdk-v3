@@ -11,7 +11,7 @@ public class HttpUtils {
      */
     public static String getUserAgent() {
         String userAgent = String.format(
-                "wxpay-webflux/%s (%s) Java/%s", HttpUtils.class.getPackage().getImplementationVersion(),
+                "wxpay-webflux/%s (%s) Java/%s", HttpUtils.class.getPackage().getName(),
                 os,
                 version == null ? "Unknown" : version);
         return userAgent;

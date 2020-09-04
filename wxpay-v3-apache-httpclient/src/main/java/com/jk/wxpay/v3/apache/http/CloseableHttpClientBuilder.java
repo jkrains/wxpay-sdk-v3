@@ -18,7 +18,8 @@ public class CloseableHttpClientBuilder extends HttpClientBuilder {
     private WxCertificatesManager wxCertificatesManager;
 
     public CloseableHttpClientBuilder() {
-        super.setUserAgent(HttpUtils.getUserAgent());
+        String userAgent = HttpUtils.getUserAgent();
+        super.setUserAgent(userAgent);
     }
 
     public CloseableHttpClientBuilder setMerchantPrivateKeyManager(MerchantPrivateKeyManager merchantPrivateKeyManager) {

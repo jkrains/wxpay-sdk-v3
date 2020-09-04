@@ -85,7 +85,7 @@ public class SingleRequester<T, R> {
     }
 
     public R request(RequestMethod method, String subPath, Map<String, Object> params, Map<String, String> headers, T body) {
-        return this.requestWithHeader(method, subPath, params,null, body);
+        return this.requestWithHeader(method, subPath, params,headers, body);
     }
 
     public R post(String subPath, Map<String, Object> params, Map<String, String> headers, T body) {

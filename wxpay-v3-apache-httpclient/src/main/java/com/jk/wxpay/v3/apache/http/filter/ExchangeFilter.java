@@ -11,6 +11,7 @@ import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpExecutionAware;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestWrapper;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.conn.routing.HttpRoute;
@@ -40,8 +41,6 @@ public class ExchangeFilter implements ClientExecChain {
         this.merchantService = merchantService;
         this.certificatesService = certificatesService;
     }
-
-
 
     @Override
     public CloseableHttpResponse execute(HttpRoute route, HttpRequestWrapper request, HttpClientContext clientContext,
@@ -85,23 +84,29 @@ public class ExchangeFilter implements ClientExecChain {
      * 这个拦截器主要是根据参数生成认证信息。
      * 这里处理认证的信息。
      * 假设body的格式为String类型，所有请求的body都被转换成json格式的string类型。
-     * @param request
+     * @param wrapper
      * @return
      */
-    private void applyRequest(String mchId, HttpRequestWrapper request) {
+    private void applyRequest(String mchId, HttpRequestWrapper wrapper) {
         try {
             MerchantPrivateKey privateKey = this.merchantService.getPrivateKey(mchId);
 
-            String method = request.getMethod();
-            URI uri = request.getURI();
+            String method = wrapper.getMethod();
+            URI uri = wrapper.getURI();
             String rawPath = uri.getRawPath();
             if (uri.getQuery() != null) {
                 rawPath += "?" + uri.getRawQuery();
             }
-            String body = EntityUtils.toString(((HttpEntityEnclosingRequest) request).getEntity());
+            FilterUtils.convertToRepeatableRequestEntity(wrapper);
+            String body;
+            if (wrapper.getOriginal() instanceof HttpGet) {
+                body = "";
+            } else {
+                body = EntityUtils.toString(((HttpEntityEnclosingRequest) wrapper).getEntity());
+            }
             String authorizationInfo = AuthorizationUtils.buildAuthorizationInfo(mchId, privateKey.getPrivateKey(), privateKey.getSerialNumber(), method, rawPath, body);
             // 添加认证信息
-            request.addHeader("Authorization",
+            wrapper.addHeader("Authorization",
                     FilterUtils.getSchema() + " " + authorizationInfo);
         } catch (NoSuchAlgorithmException e) {
             throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
