@@ -1,6 +1,5 @@
 package com.jk.wxpay.v3.apache.http;
 
-import com.jk.wxpay.v3.apache.http.filter.WxPayExchangeFilter;
 import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.block.WxCertificatesManager;
 import com.jk.wxpay.v3.block.request.ApiContext;
@@ -11,26 +10,26 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WxPayApiContextBuilder {
-    private static final Logger log = LoggerFactory.getLogger(WxPayApiContextBuilder.class.getSimpleName());
+public class ApiContextBuilder {
+    private static final Logger log = LoggerFactory.getLogger(ApiContextBuilder.class.getSimpleName());
     private String hostUrl = Constants.PAY_HOST_URL;
     private MerchantPrivateKeyManager merchantPrivateKeyManager;
     private WxCertificatesManager wxCertificatesManager;
 
-    public WxPayApiContextBuilder() {
+    public ApiContextBuilder() {
     }
 
-    public WxPayApiContextBuilder setHostUrl(String hostUrl) {
+    public ApiContextBuilder setHostUrl(String hostUrl) {
         this.hostUrl = hostUrl;
         return this;
     }
 
-    public WxPayApiContextBuilder setMerchantPrivateKeyManager(MerchantPrivateKeyManager merchantPrivateKeyManager) {
+    public ApiContextBuilder setMerchantPrivateKeyManager(MerchantPrivateKeyManager merchantPrivateKeyManager) {
         this.merchantPrivateKeyManager = merchantPrivateKeyManager;
         return this;
     }
 
-    public WxPayApiContextBuilder setWxCertificatesManager(WxCertificatesManager wxCertificatesManager) {
+    public ApiContextBuilder setWxCertificatesManager(WxCertificatesManager wxCertificatesManager) {
         this.wxCertificatesManager = wxCertificatesManager;
         return this;
     }

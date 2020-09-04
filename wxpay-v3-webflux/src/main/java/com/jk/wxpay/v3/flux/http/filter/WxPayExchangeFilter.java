@@ -93,9 +93,15 @@ public class WxPayExchangeFilter implements ExchangeFilterFunction {
     private Mono<ClientResponse> applyResponse(String mchId, ClientResponse response) {
         int statusCode = response.rawStatusCode();
         if (statusCode >=200 && statusCode < 300) {
-            return this.certificatesService.getValidCertificate(mchId).flatMap(certificate -> {
-                return FilterUtils.checkResponse(certificate, response);
-            });
+            if (this.certificatesService != null) {
+                return this.certificatesService.getValidCertificate(mchId).flatMap(certificate -> {
+                    return FilterUtils.checkResponse(certificate, response);
+                });
+            } else {
+                // 如果没有设置这个值，则不进行验签。
+                return Mono.just(response);
+            }
+
         } else {
             return Mono.just(response);
         }

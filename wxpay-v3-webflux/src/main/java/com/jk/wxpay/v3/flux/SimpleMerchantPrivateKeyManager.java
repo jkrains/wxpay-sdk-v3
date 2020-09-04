@@ -22,7 +22,7 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
      */
     private String privateKeyPath = "pem/wx_key.pem";
     private MerchantPrivateKey mchPrivateKey;
-
+    private String apiV3Key;
     /**
      * 商户证书的序列号
      */
@@ -41,6 +41,16 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         return this;
     }
 
+    public SimpleMerchantPrivateKeyManager setMchPrivateKey(MerchantPrivateKey mchPrivateKey) {
+        this.mchPrivateKey = mchPrivateKey;
+        return this;
+    }
+
+    public SimpleMerchantPrivateKeyManager setApiV3Key(String apiV3Key) {
+        this.apiV3Key = apiV3Key;
+        return this;
+    }
+
     @Override
     public Mono<MerchantPrivateKey> getPrivateKey(String mchId) {
         try {
@@ -53,5 +63,10 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | IllegalArgumentException | IOException e) {
             return Mono.error(new WxErrorException(e.getClass().getSimpleName(), e.getMessage()));
         }
+    }
+
+    @Override
+    public Mono<String> getApiV3Key(String mchId) {
+        return Mono.just(this.apiV3Key);
     }
 }

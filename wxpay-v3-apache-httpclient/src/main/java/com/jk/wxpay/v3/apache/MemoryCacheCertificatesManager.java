@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.apache;
 
-import com.jk.wxpay.v3.apache.http.WxPayApiContextBuilder;
+import com.jk.wxpay.v3.apache.http.ApiContextBuilder;
 import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.block.WxCertificatesManager;
 import com.jk.wxpay.v3.block.api.CertificatesDownloader;
@@ -22,7 +22,7 @@ import java.util.Map;
  * 这个函数完成自动从微信服务器上进行更新。 来下载微信证书。证书保存在当前模块的内存中。
  * 本模块依赖于MerchantPrivateKeyManager来进行进行
  */
-public class WxMemoryCacheCertificatesManager implements WxCertificatesManager {
+public class MemoryCacheCertificatesManager implements WxCertificatesManager {
 
     private final CertificatesDownloader certificatesDownloader;
     private final MerchantPrivateKeyManager privateKeyManager;
@@ -31,9 +31,9 @@ public class WxMemoryCacheCertificatesManager implements WxCertificatesManager {
      */
     private final Map<String, List<X509Certificate>> certMapList = Collections.synchronizedMap(new HashMap<>());
 
-    public WxMemoryCacheCertificatesManager(MerchantPrivateKeyManager privateKeyManager) {
+    public MemoryCacheCertificatesManager(MerchantPrivateKeyManager privateKeyManager) {
         this.privateKeyManager = privateKeyManager;
-        ApiContext apiContext = new WxPayApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager).build();
+        ApiContext apiContext = new ApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager).build();
         this.certificatesDownloader = new CertificatesDownloader(apiContext);
     }
 

@@ -1,5 +1,5 @@
 package com.jk.wxpay.v3.apache.http;
-import com.jk.wxpay.v3.apache.http.filter.WxPayExchangeFilter;
+import com.jk.wxpay.v3.apache.http.filter.ExchangeFilter;
 import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.block.WxCertificatesManager;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -44,6 +44,6 @@ public class CloseableHttpClientBuilder extends HttpClientBuilder {
 
     @Override
     protected ClientExecChain decorateProtocolExec(final ClientExecChain requestExecutor) {
-        return new WxPayExchangeFilter(requestExecutor, this.merchantPrivateKeyManager, this.wxCertificatesManager);
+        return new ExchangeFilter(requestExecutor, this.merchantPrivateKeyManager, this.wxCertificatesManager);
     }
 }

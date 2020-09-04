@@ -7,6 +7,8 @@ import com.jk.wxpay.v3.flux.http.filter.WxPayExchangeFilter;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.reactor.WxCertificatesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -17,10 +19,10 @@ import java.util.List;
  *
  * 使用这个类来构建 Http Api context.
  * 构造一个缺省的对象， SDK 其他模块，均可以使用该来进行构造。
- *
+ * 注意： 如果不设置WxCertificatesManager则，对微信的结果不进行验签， 这种情况下主要用于下载微信证书。
  */
 public class WxPayApiContextBuilder {
-
+    private static final Logger log = LoggerFactory.getLogger(WxPayApiContextBuilder.class.getSimpleName());
     private String hostUrl = Constants.PAY_HOST_URL;
     private MerchantPrivateKeyManager merchantPrivateKeyManager;
     private WxCertificatesManager wxCertificatesManager;
@@ -64,7 +66,7 @@ public class WxPayApiContextBuilder {
         }
 
         if (wxCertificatesManager == null) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "wx certificates manager is null");
+            log.warn("wx certificates manager is invalid, the response will not be verified");
         }
 
         WxPayExchangeFilter authTokenExchangeFilter = new WxPayExchangeFilter(merchantPrivateKeyManager, wxCertificatesManager);

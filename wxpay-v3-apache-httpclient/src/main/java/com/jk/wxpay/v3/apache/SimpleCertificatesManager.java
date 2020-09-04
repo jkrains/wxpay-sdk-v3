@@ -13,12 +13,12 @@ import java.security.cert.X509Certificate;
  * 这个类只能用于测试，在正式环境下，不能应用该类。因为微信的证书会动态更新。
  * 需要写一个动态更新的代码，来动态的从微信官方网站获取证书存储在本地。
  */
-public class SimpleWxCertificatesManager implements WxCertificatesManager {
+public class SimpleCertificatesManager implements WxCertificatesManager {
 
     private String certificatesPath = "pem/wx_cert.pem";
     private X509Certificate x509Certificate;
 
-    public SimpleWxCertificatesManager() {
+    public SimpleCertificatesManager() {
     }
 
     public void setCertificatesPath(String certificatesPath) {

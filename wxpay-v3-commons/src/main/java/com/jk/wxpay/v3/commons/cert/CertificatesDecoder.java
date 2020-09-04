@@ -20,12 +20,12 @@ import java.util.Objects;
 /**
  * 使用apiV3Key解密证书编程非机密内容。
  */
-public class EncryptCertificatesDecoder {
+public class CertificatesDecoder {
 
     private String apiV3Key;
     private EncryptCertificateEntity encryptEntity;
 
-    public EncryptCertificatesDecoder(String apiV3Key, EncryptCertificateEntity encryptEntity) {
+    public CertificatesDecoder(String apiV3Key, EncryptCertificateEntity encryptEntity) {
 
         Objects.requireNonNull(apiV3Key);
         Objects.requireNonNull(encryptEntity);

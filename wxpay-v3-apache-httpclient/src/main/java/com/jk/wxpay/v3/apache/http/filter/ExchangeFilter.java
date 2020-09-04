@@ -28,13 +28,13 @@ import java.security.cert.X509Certificate;
 /**
  * 拦截器，拦截 http的请求和响应。
  */
-public class WxPayExchangeFilter implements ClientExecChain {
+public class ExchangeFilter implements ClientExecChain {
 
     private  final ClientExecChain mainExec;
     private final MerchantPrivateKeyManager merchantService;
     private final WxCertificatesManager certificatesService;
 
-    public WxPayExchangeFilter(ClientExecChain mainExec, MerchantPrivateKeyManager merchantService, WxCertificatesManager certificatesService) {
+    public ExchangeFilter(ClientExecChain mainExec, MerchantPrivateKeyManager merchantService, WxCertificatesManager certificatesService) {
 
         this.mainExec = mainExec;
         this.merchantService = merchantService;
