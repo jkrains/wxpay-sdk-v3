@@ -14,5 +14,5 @@ public interface MerchantPrivateKeyManager {
      * @return
      */
     MerchantPrivateKey getPrivateKey(String mchId);
-
+    String getApiV3Key(String mchId);
 }

@@ -104,6 +104,10 @@ public class SingleRequester<T, R> {
         return this.request(RequestMethod.GET, subPath, params, null);
     }
 
+    public R get(Map<String, Object> params) {
+        return this.request(RequestMethod.GET, null, params, null);
+    }
+
     public R get() {
         return this.get(null, null);
     }
