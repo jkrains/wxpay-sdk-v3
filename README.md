@@ -156,7 +156,7 @@ try {
     e.printStackTrace();
 }
 
-// ........其他支付接口不再掩饰。
+// ........其他支付接口不再演示。
 ```
 
 
@@ -264,7 +264,7 @@ jsApiPrepay.prepay(prepayOrder).subscribe(result -> {
     // do something.
 }, e -> System.out.println());
 
-// ........其他支付接口不再掩饰。
+// ........其他支付接口不再演示。
 ```
 
 
