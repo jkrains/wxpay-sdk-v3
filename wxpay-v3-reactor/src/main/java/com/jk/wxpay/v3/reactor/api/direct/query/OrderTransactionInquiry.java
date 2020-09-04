@@ -9,6 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
+
 /**
  * 通过微信支付订单号查询
  */
@@ -25,9 +28,6 @@ public class OrderTransactionInquiry extends SingleRequester<Void, OrderQueryRes
 
     @Override
     public Mono<OrderQueryResult> query(String mchId, String id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("mchid", mchId);
-        params.put(Constants.JK_MCH_ID, mchId);
-        return super.get("/" + id, params);
+        return super.get("/" + id, createParamsWith(mchId), createHeadersWith(mchId));
     }
 }

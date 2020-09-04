@@ -5,6 +5,7 @@ import com.jk.wxpay.v3.block.request.SingleRequester;
 import com.jk.wxpay.v3.commons.bean.direct.MerchantId;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.util.RequestUtils;
 
 
 import java.util.HashMap;
@@ -39,9 +40,7 @@ public class OrderClosure extends SingleRequester<MerchantId, Void> {
      */
     public void close(String mchid, String outTradeNo) throws WxErrorException {
         String subPath = "/" + outTradeNo + "/close";
-        Map<String, Object> params = new HashMap<>();
-        params.put("mchid", mchid);
-        params.put(Constants.JK_MCH_ID, mchid);
-        super.post(subPath, params, new MerchantId(mchid));
+        super.post(subPath, RequestUtils.createParamsWith(mchid),
+                RequestUtils.createHeadersWith(mchid), new MerchantId(mchid));
     }
 }

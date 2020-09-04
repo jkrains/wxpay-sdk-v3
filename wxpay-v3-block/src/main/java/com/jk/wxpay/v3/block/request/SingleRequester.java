@@ -84,28 +84,28 @@ public class SingleRequester<T, R> {
         return JsonUtils.fromJson(jstr, this.classR);
     }
 
-    public R request(RequestMethod method, String subPath, Map<String, Object> params, T body) {
+    public R request(RequestMethod method, String subPath, Map<String, Object> params, Map<String, String> headers, T body) {
         return this.requestWithHeader(method, subPath, params,null, body);
     }
 
-    public R post(String subPath, Map<String, Object> params, T body) {
-        return this.request(RequestMethod.POST, subPath, params, body);
+    public R post(String subPath, Map<String, Object> params, Map<String, String> headers, T body) {
+        return this.request(RequestMethod.POST, subPath, params, headers, body);
     }
 
-    public R post(Map<String, Object> params, T body) {
-        return this.post(null, params, body);
+    public R post(Map<String, Object> params, Map<String, String> headers, T body) {
+        return this.post(null, params, headers, body);
     }
 
     public R post(T body) {
-        return this.post(null, body);
+        return this.post(null, null, body);
     }
 
-    public R get(String subPath, Map<String, Object> params) {
-        return this.request(RequestMethod.GET, subPath, params, null);
+    public R get(String subPath, Map<String, Object> params, Map<String, String> headers) {
+        return this.request(RequestMethod.GET, subPath, params, headers, null);
     }
 
-    public R get(Map<String, Object> params) {
-        return this.request(RequestMethod.GET, null, params, null);
+    public R get(Map<String, Object> params, Map<String, String> headers) {
+        return this.request(RequestMethod.GET, null, params, headers, null);
     }
 
     public R get() {

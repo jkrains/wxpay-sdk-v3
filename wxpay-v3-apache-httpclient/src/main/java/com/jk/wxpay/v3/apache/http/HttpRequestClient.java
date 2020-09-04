@@ -40,7 +40,7 @@ public class HttpRequestClient implements RequestClient {
             Object body) {
 
         try {
-            URIBuilder uriBuilder = new URIBuilder();
+            URIBuilder uriBuilder = new URIBuilder(this.hostUrl);
             if (params != null && params.size() > 0) {
                 params.entrySet().forEach(entry -> {
                     uriBuilder.addParameter(entry.getKey(), (String)entry.getValue());
@@ -49,7 +49,7 @@ public class HttpRequestClient implements RequestClient {
             if (subPath != null) {
                 uriBuilder.setPath(subPath);
             }
-            uriBuilder.setHost(hostUrl);
+
             URI uri = uriBuilder.build();
             HttpUriRequest request = convertToHttpUriRequest(method, uri, body);
             if (headers != null && headers.size() > 0) {

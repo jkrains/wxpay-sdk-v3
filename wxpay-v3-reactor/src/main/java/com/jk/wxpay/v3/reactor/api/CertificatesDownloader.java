@@ -9,6 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
+
 /**
  * 证书下载器，下载证书。
  * 这个对象用来下载微信端的证书，不需要验签微信端返回的数据。
@@ -31,6 +34,6 @@ public class CertificatesDownloader extends SingleRequester<Void, EncryptCertifi
     public Mono<EncryptCertificateEntity> getCertificates(String mchId) {
         Map<String, Object> params = new HashMap<>();
         params.put(Constants.JK_MCH_ID, mchId);
-        return super.get(params);
+        return super.get(null, createHeadersWith(mchId));
     }
 }

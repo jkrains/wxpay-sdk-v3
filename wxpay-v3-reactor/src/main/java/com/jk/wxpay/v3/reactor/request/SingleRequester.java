@@ -85,28 +85,28 @@ public class SingleRequester<T, R> {
         return this.requestString(method, finalPath, params, headers, bodyStr).map(r -> JsonUtils.fromJson(r, this.classR));
     }
 
-    public Mono<R> request(RequestMethod method, String subPath, Map<String, Object> params, T body) {
-        return this.requestWithHeader(method, subPath, params,null, body);
+    public Mono<R> request(RequestMethod method, String subPath, Map<String, Object> params,Map<String, String> headers, T body) {
+        return this.requestWithHeader(method, subPath, params,headers, body);
     }
 
-    public Mono<R> post(String subPath, Map<String, Object> params, T body) {
-        return this.request(RequestMethod.POST, subPath, params, body);
+    public Mono<R> post(String subPath, Map<String, Object> params, Map<String, String> headers, T body) {
+        return this.request(RequestMethod.POST, subPath, params, headers, body);
     }
 
-    public Mono<R> post(Map<String, Object> params, T body) {
-        return this.post(null, params, body);
+    public Mono<R> post(Map<String, Object> params, Map<String, String> headers, T body) {
+        return this.post(null, params, headers, body);
     }
 
     public Mono<R> post(T body) {
-        return this.post(null, body);
+        return this.post(null, null, body);
     }
 
-    public Mono<R> get(String subPath, Map<String, java.lang.Object> params) {
-        return this.request(RequestMethod.GET, subPath, params, null);
+    public Mono<R> get(String subPath, Map<String, Object> params, Map<String, String> headers) {
+        return this.request(RequestMethod.GET, subPath, params, headers, null);
     }
 
-    public Mono<R> get(Map<String, java.lang.Object> params) {
-        return this.request(RequestMethod.GET, null, params, null);
+    public Mono<R> get(Map<String, Object> params, Map<String, String> headers) {
+        return this.request(RequestMethod.GET, null, params, headers, null);
     }
 
     public Mono<R> get() {

@@ -4,6 +4,7 @@ import com.jk.wxpay.v3.block.request.ApiContext;
 import com.jk.wxpay.v3.block.request.SingleRequester;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
+import com.jk.wxpay.v3.commons.util.RequestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +30,6 @@ public class CertificatesDownloader extends SingleRequester<Void, EncryptCertifi
      * @return
      */
     public EncryptCertificateEntity getCertificates(String mchId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(Constants.JK_MCH_ID, mchId);
-        return super.get(params);
+        return super.get(null, RequestUtils.createHeadersWith(mchId));
     }
 }

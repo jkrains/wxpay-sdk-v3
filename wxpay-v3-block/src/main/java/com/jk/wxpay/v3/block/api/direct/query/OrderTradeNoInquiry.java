@@ -9,6 +9,9 @@ import com.jk.wxpay.v3.commons.Constants;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
+
 /**
  * 通过商户订单号查询
  */
@@ -25,9 +28,6 @@ public class OrderTradeNoInquiry extends SingleRequester<Void, OrderQueryResult>
 
     @Override
     public OrderQueryResult query(String mchId, String id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("mchid", mchId);
-        params.put(Constants.JK_MCH_ID, mchId);
-        return super.get("/" + id, params);
+        return super.get("/" + id, createParamsWith(mchId), createHeadersWith(mchId));
     }
 }

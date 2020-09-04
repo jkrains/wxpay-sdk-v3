@@ -2,12 +2,16 @@ package com.jk.wxpay.v3.reactor.api.direct;
 
 import com.jk.wxpay.v3.commons.bean.direct.MerchantId;
 import com.jk.wxpay.v3.commons.Constants;
+import com.jk.wxpay.v3.commons.util.RequestUtils;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
 
 /**
  *
@@ -38,9 +42,6 @@ public class OrderClosure extends SingleRequester<MerchantId, Void> {
      */
     public Mono<Void> close(String mchid, String outTradeNo) {
         String subPath = "/" + outTradeNo + "/close";
-        Map<String, Object> params = new HashMap<>();
-        params.put("mchid", mchid);
-        params.put(Constants.JK_MCH_ID, mchid);
-        return super.post(subPath, params, new MerchantId(mchid));
+        return super.post(subPath, createParamsWith(mchid), createHeadersWith(mchid), new MerchantId(mchid));
     }
 }

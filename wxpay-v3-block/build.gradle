@@ -12,6 +12,6 @@ repositories {
 }
 
 dependencies {
-    api project(':wxpay-v3-commons')
+    implementation project(':wxpay-v3-commons')
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }

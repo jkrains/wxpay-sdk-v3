@@ -14,19 +14,19 @@ repositories {
 ext {
     junit_version = "4.12"
     httpclient_version = "4.5.12"
-    slf4j_version = "1.7.30"
+    logback_version = "1.2.3"
 }
 
 dependencies {
-    
+
+    implementation project(':wxpay-v3-commons')
     implementation project(':wxpay-v3-block')
 
     implementation "org.apache.httpcomponents:httpclient:$httpclient_version"
     implementation "org.apache.httpcomponents:httpmime:$httpclient_version"
 
 
-    implementation "org.slf4j:slf4j-api:$slf4j_version"
-    implementation "org.slf4j:slf4j-simple:$slf4j_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
 
     testImplementation "junit:junit:$junit_version"
 }

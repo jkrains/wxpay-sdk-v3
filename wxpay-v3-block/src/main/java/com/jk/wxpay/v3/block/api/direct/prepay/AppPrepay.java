@@ -10,6 +10,8 @@ import com.jk.wxpay.v3.commons.Constants;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+
 public class AppPrepay extends SingleRequester<PrepayOrder, PrepayResult> implements Prepay<PrepayOrder, PrepayResult> {
 
     /**
@@ -23,8 +25,6 @@ public class AppPrepay extends SingleRequester<PrepayOrder, PrepayResult> implem
 
     @Override
     public PrepayResult prepay(PrepayOrder prepayOrder) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(Constants.JK_MCH_ID, prepayOrder.getMchId());
-        return super.post(params, prepayOrder);
+        return super.post(null, createHeadersWith(prepayOrder.getMchId()), prepayOrder);
     }
 }

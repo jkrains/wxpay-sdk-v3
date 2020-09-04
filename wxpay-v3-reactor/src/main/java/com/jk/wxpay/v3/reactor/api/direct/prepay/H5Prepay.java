@@ -10,6 +10,8 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
+
 public class H5Prepay extends SingleRequester<PrepayOrder, H5PrepayResult> implements Prepay<PrepayOrder, H5PrepayResult> {
 
     public H5Prepay(ApiContext apiContext) {
@@ -18,8 +20,6 @@ public class H5Prepay extends SingleRequester<PrepayOrder, H5PrepayResult> imple
 
     @Override
     public Mono<H5PrepayResult> prepay(PrepayOrder prepayOrder) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(Constants.JK_MCH_ID, prepayOrder.getMchId());
-        return super.post(params, prepayOrder);
+        return super.post(null, createHeadersWith(prepayOrder.getMchId()), prepayOrder);
     }
 }
