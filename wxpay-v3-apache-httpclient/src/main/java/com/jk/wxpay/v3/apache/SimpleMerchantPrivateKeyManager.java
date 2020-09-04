@@ -5,7 +5,6 @@ import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
@@ -13,7 +12,8 @@ import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * 简单的商户私钥服务，从resource 中初始化。
+ * 简单的商户私钥服务，从resource 中初始化。可以根据不同的环境实现不同的管理器。
+ *
  */
 public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManager {
 
@@ -41,6 +41,10 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         return this;
     }
 
+    public void setMchPrivateKey(MerchantPrivateKey mchPrivateKey) {
+        this.mchPrivateKey = mchPrivateKey;
+    }
+
     @Override
     public MerchantPrivateKey getPrivateKey(String mchId) {
         try {
@@ -54,5 +58,10 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | IllegalArgumentException | IOException e) {
             throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
         }
+    }
+
+    @Override
+    public String getApiV3Key(String mchId) {
+        return null;
     }
 }

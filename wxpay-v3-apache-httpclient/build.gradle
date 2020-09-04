@@ -29,5 +29,5 @@ dependencies {
     implementation "org.slf4j:slf4j-api:$slf4j_version"
     implementation "org.slf4j:slf4j-simple:$slf4j_version"
 
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation "junit:junit:$junit_version"
 }

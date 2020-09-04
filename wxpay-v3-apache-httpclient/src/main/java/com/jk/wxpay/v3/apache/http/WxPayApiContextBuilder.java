@@ -8,9 +8,11 @@ import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WxPayApiContextBuilder {
-
+    private static final Logger log = LoggerFactory.getLogger(WxPayApiContextBuilder.class.getSimpleName());
     private String hostUrl = Constants.PAY_HOST_URL;
     private MerchantPrivateKeyManager merchantPrivateKeyManager;
     private WxCertificatesManager wxCertificatesManager;
@@ -48,7 +50,7 @@ public class WxPayApiContextBuilder {
         }
 
         if (wxCertificatesManager == null) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Wx certificates manager is null");
+            log.warn("Wx certificates manager is invalid, do not verify the response info");
         }
 
         CloseableHttpClientBuilder builder = new CloseableHttpClientBuilder();

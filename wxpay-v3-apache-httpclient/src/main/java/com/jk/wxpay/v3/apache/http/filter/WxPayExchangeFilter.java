@@ -68,8 +68,13 @@ public class WxPayExchangeFilter implements ClientExecChain {
     private CloseableHttpResponse applyResponse(String mchId, CloseableHttpResponse response) {
         int statusCode = response.getStatusLine().getStatusCode();
         if (statusCode >=200 && statusCode < 300) {
-            X509Certificate validCertificate = this.certificatesService.getValidCertificate(mchId);
-            return FilterUtils.checkResponse(validCertificate, response);
+            if (this.certificatesService != null) {
+                X509Certificate validCertificate = this.certificatesService.getValidCertificate(mchId);
+                return FilterUtils.checkResponse(validCertificate, response);
+            } else {
+                // 如果没有wx证书，则不进行验签。
+                return response;
+            }
         } else {
             return response;
         }
