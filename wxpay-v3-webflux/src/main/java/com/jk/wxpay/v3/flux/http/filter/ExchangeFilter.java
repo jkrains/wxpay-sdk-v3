@@ -87,16 +87,21 @@ public class ExchangeFilter implements ExchangeFilterFunction {
      * 微信支付响应 拦截器，拦截数据 进行校验。
      * 校验请求的返回结果是否合法。
      * @param mchId  商户id
+     * @param uri 请求的uri
      * @param response
      * @return
      */
-    private Mono<ClientResponse> applyResponse(String mchId, ClientResponse response) {
+    private Mono<ClientResponse> applyResponse(String mchId, URI uri, ClientResponse response) {
         int statusCode = response.rawStatusCode();
         if (statusCode >=200 && statusCode < 300) {
             if (this.certificatesService != null) {
-                return this.certificatesService.getValidCertificate(mchId).flatMap(certificate -> {
-                    return FilterUtils.checkResponse(certificate, response);
-                });
+                if (needVerifyResult(uri)) {
+                    return this.certificatesService.getValidCertificate(mchId).flatMap(certificate -> {
+                        return FilterUtils.checkResponse(certificate, response);
+                    });
+                } else {
+                    return Mono.just(response);
+                }
             } else {
                 // 如果没有设置这个值，则不进行验签。
                 return Mono.just(response);
@@ -117,7 +122,7 @@ public class ExchangeFilter implements ExchangeFilterFunction {
                 return this.applyRequest(request)
                         .flatMap(holder -> {
                             return next.exchange(holder.clientRequest).flatMap(response -> {
-                                return applyResponse(holder.mchId, response);
+                                return applyResponse(holder.mchId, uri, response);
                             });
                         });
             } else {
@@ -126,6 +131,19 @@ public class ExchangeFilter implements ExchangeFilterFunction {
         } else {
             return Mono.error(new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Http header should contains jk_mchId"));
         }
+    }
+
+    /**
+     * 对于下载证书接口返回值不需要进行验签。
+     * @param uri
+     * @return
+     */
+    private boolean needVerifyResult(URI uri) {
+        String rawPath = uri.getRawPath();
+        if (Constants.PATH_CERTIFICATES.equals(rawPath)) {
+            return false;
+        }
+        return true;
     }
 
     private class ApplyRequestHolder {
