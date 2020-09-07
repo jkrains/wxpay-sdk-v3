@@ -94,7 +94,7 @@ public class HttpRequestClient implements RequestClient {
         return requestBodySpec
                 .exchange()
                 .flatMap(clientResponse -> {
-                    return HttpUtils.toJson(clientResponse).map(jstr -> {
+                    return clientResponse.bodyToMono(String.class).map(jstr -> {
                         int st  = clientResponse.rawStatusCode();
                         return new ResponseHolder(jstr, st);
                     });

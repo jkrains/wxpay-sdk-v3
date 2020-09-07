@@ -70,7 +70,7 @@ public class FilterUtils {
     }
 
     /**
-     * 校验微信测返回的数据。
+     * 校验微信测返回的数据, 这里对数据进行了一次消费，需要复制一份。
      * @param certificate
      * @param response
      * @return
@@ -78,21 +78,19 @@ public class FilterUtils {
     public static Mono<ClientResponse> checkResponse(X509Certificate certificate, ClientResponse response) {
         HttpHeaders headers = response.headers().asHttpHeaders();
         validateResponseHeaders(headers);
-
         return Mono.just(response).publishOn(Schedulers.parallel()).flatMap(r -> {
             String timestamp = headers.getFirst(H_W_TIMESTAMP);
             String nonce = headers.getFirst(H_W_NONCE);
             String serial = headers.getFirst(H_W_SERIAL);
             String signature = headers.getFirst(H_W_SIGNATURE);
-            return r.toEntity(String.class).map(entity -> {
-                String body = entity.toString();
+            return response.bodyToMono(String.class).map(body -> {
                 if (body == null) {
                     body = "";
                 }
                 try {
                     boolean valid = ValidationUtil.validate(certificate, timestamp, nonce, body, signature);
                     if (valid) {
-                        return response;
+                        return ClientResponse.create(response.statusCode()).body(body).build();
                     } else {
                         throw new WxErrorException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
                     }
