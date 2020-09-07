@@ -19,7 +19,7 @@ public class StringUtils {
             count = 32;
         }
         char[] nonceChars = new char[count];
-        for (int index = 0; index < nonceChars.length; index++) {
+        for (int index = 0; index < nonceChars.length; ++index) {
             nonceChars[index] = SYMBOLS.charAt(RANDOM.nextInt(SYMBOLS.length()));
         }
         return new String(nonceChars);

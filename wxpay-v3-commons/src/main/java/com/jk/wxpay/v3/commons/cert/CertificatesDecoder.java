@@ -51,6 +51,7 @@ public class CertificatesDecoder {
                         .setCertText(AesUtil.decryptToString(apiV3Key.getBytes(),
                                 certificate.getAssociatedData().getBytes(),
                                 certificate.getNonce().getBytes(), certificate.getCipherText()));
+                decryptList.add(decryptItem);
             } catch (GeneralSecurityException e) {
                 throw new WxErrorException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
             }

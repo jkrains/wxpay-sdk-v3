@@ -11,10 +11,10 @@ public class EncryptCertificateDescription {
     @SerializedName("serial_no")
     private String serialNo;
 
-    @SerializedName("effective_time ")
+    @SerializedName("effective_time")
     private String effectiveTime;
 
-    @SerializedName("expire_time ")
+    @SerializedName("expire_time")
     private String expireTime;
 
     @SerializedName("encrypt_certificate")
