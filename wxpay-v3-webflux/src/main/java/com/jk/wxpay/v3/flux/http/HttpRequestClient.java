@@ -58,6 +58,7 @@ public class HttpRequestClient implements RequestClient {
                     return urlBuilder.build();
                 })
                 .headers(hs -> {
+                    hs.add("Accept", "application/json");
                     if (headers != null) {
                         headers.entrySet().forEach(entry -> {
                             hs.add(entry.getKey(), entry.getValue());
