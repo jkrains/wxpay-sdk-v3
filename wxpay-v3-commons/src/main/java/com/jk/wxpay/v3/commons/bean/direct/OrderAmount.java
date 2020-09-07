@@ -1,5 +1,7 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 描述订单金额
  */
@@ -7,9 +9,11 @@ public class OrderAmount {
     /**
      * 订单总金额，单位为分。
      * 示例值：100
+     * 当为合单支付时， 名称为 'total_amount'
      * [r]
      */
-    private int total;
+    @SerializedName(value = "total", alternate = "total_amount")
+    private Integer total;
 
     /**
      * CNY：人民币，境内商户号仅支持人民币。
@@ -21,12 +25,12 @@ public class OrderAmount {
     public OrderAmount() {
     }
 
-    public OrderAmount(int total, String currency) {
+    public OrderAmount(Integer total, String currency) {
         this.total = total;
         this.currency = currency;
     }
 
-    public int getTotal() {
+    public Integer getTotal() {
         return total;
     }
 

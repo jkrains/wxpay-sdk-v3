@@ -1,4 +1,4 @@
-package com.jk.wxpay.v3.block.api.direct.prepay;
+package com.jk.wxpay.v3.block.api;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 

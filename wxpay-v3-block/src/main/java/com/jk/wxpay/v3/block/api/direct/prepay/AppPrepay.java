@@ -1,14 +1,12 @@
 package com.jk.wxpay.v3.block.api.direct.prepay;
 
+import com.jk.wxpay.v3.block.api.Prepay;
 import com.jk.wxpay.v3.block.request.ApiContext;
 import com.jk.wxpay.v3.block.request.SingleRequester;
 import com.jk.wxpay.v3.commons.bean.direct.PrepayOrder;
 import com.jk.wxpay.v3.commons.bean.direct.result.PrepayResult;
 import com.jk.wxpay.v3.commons.Constants;
 
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
 
