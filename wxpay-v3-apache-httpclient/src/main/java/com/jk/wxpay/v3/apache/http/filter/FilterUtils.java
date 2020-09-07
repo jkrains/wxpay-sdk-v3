@@ -6,6 +6,7 @@ import com.jk.wxpay.v3.commons.util.ValidationUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
+import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestWrapper;
 import org.apache.http.entity.BufferedHttpEntity;
@@ -83,7 +84,8 @@ public class FilterUtils {
         }
     }
 
-    public static void convertToRepeatableRequestEntity(HttpRequestWrapper request) throws IOException {
+    public static void convertToRepeatableRequestEntity(HttpRequestWrapper wrapper) throws IOException {
+        HttpRequest request = wrapper.getOriginal();
         if (request instanceof HttpEntityEnclosingRequest) {
             HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
             if (entity != null) {

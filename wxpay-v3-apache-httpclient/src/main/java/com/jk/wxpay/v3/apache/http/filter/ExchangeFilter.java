@@ -6,16 +6,16 @@ import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
 import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.AuthorizationUtils;
-import org.apache.http.HttpEntity;
+
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
+import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpExecutionAware;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestWrapper;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.execchain.ClientExecChain;
 import org.apache.http.util.EntityUtils;
 
@@ -46,7 +46,7 @@ public class ExchangeFilter implements ClientExecChain {
     public CloseableHttpResponse execute(HttpRoute route, HttpRequestWrapper request, HttpClientContext clientContext,
                                          HttpExecutionAware execAware) throws IOException, HttpException {
         if (request.getURI().getHost().endsWith(Constants.WX_BASE_URL_SUFFIX)) {
-            String mchId = request.getFirstHeader(Constants.JK_MCH_ID).toString();
+            String mchId = request.getFirstHeader(Constants.JK_MCH_ID).getValue();
             applyRequest(mchId, request);
             CloseableHttpResponse response = mainExec.execute(route, request, clientContext, execAware);
             return applyResponse(mchId, response);
@@ -98,14 +98,14 @@ public class ExchangeFilter implements ClientExecChain {
                 rawPath += "?" + uri.getRawQuery();
             }
             FilterUtils.convertToRepeatableRequestEntity(wrapper);
-            String body;
-            if (wrapper.getOriginal() instanceof HttpGet) {
-                body = "";
-            } else {
+            String body = "";
+            HttpRequest request = wrapper.getOriginal();
+            if (request instanceof  HttpEntityEnclosingRequest) {
                 body = EntityUtils.toString(((HttpEntityEnclosingRequest) wrapper).getEntity());
             }
             String authorizationInfo = AuthorizationUtils.buildAuthorizationInfo(mchId, privateKey.getPrivateKey(), privateKey.getSerialNumber(), method, rawPath, body);
             // 添加认证信息
+            wrapper.removeHeaders(Constants.JK_MCH_ID);
             wrapper.addHeader("Authorization",
                     FilterUtils.getSchema() + " " + authorizationInfo);
         } catch (NoSuchAlgorithmException e) {

@@ -57,6 +57,7 @@ public class HttpRequestClient implements RequestClient {
                     request.setHeader(entry.getKey(), entry.getValue());
                 });
             }
+            request.setHeader("Accept", "application/json");
             CloseableHttpResponse response = httpClient.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == StatusCode.ST_OK) {
