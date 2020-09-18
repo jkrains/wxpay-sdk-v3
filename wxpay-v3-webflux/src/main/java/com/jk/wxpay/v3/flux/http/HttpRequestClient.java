@@ -2,7 +2,7 @@ package com.jk.wxpay.v3.flux.http;
 
 import com.jk.wxpay.v3.commons.exception.StatusCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.JsonUtils;
 import com.jk.wxpay.v3.reactor.request.RequestClient;
 import com.jk.wxpay.v3.reactor.request.RequestMethod;
@@ -37,7 +37,7 @@ public class HttpRequestClient implements RequestClient {
         } else  if (requestMethod == requestMethod.DELETE) {
             return HttpMethod.DELETE;
         }
-        throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "unknown method");
+        throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "unknown method");
     }
 
     private WebClient.RequestBodySpec getRequestBodySpec(
@@ -74,7 +74,7 @@ public class HttpRequestClient implements RequestClient {
                 if (body instanceof String) {
                     bodyStr = (String) body;
                 } else {
-                    throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Body format is not supported");
+                    throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "Body format is not supported");
                 }
             }
             requestBodySpec.bodyValue(bodyStr);

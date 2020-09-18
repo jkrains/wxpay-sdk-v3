@@ -4,7 +4,7 @@ import com.jk.wxpay.v3.commons.bean.cert.DecryptCertificateDescription;
 import com.jk.wxpay.v3.commons.bean.cert.DecryptCertificateEntity;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificate;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.AesUtil;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 
@@ -37,9 +37,9 @@ public class CertificatesDecoder {
     /**
      * 转换成解密后的实体类。
      * @return
-     * @throws WxErrorException
+     * @throws WxPayException
      */
-    public DecryptCertificateEntity decodeToEntity() throws WxErrorException {
+    public DecryptCertificateEntity decodeToEntity() throws WxPayException {
         List<DecryptCertificateDescription> decryptList = new ArrayList<>();
         this.encryptEntity.getData().forEach(ed -> {
             try {
@@ -53,7 +53,7 @@ public class CertificatesDecoder {
                                 certificate.getNonce().getBytes(), certificate.getCipherText()));
                 decryptList.add(decryptItem);
             } catch (GeneralSecurityException e) {
-                throw new WxErrorException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
+                throw new WxPayException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
             }
         });
         return new DecryptCertificateEntity(decryptList);
@@ -63,7 +63,7 @@ public class CertificatesDecoder {
      * 转换成java证书列表, 如果有无效的数据，该函数会抛出异常。
      * @return
      */
-    public List<X509Certificate> decodeToX509List() throws WxErrorException {
+    public List<X509Certificate> decodeToX509List() throws WxPayException {
         List<X509Certificate> decryptList = new ArrayList<>();
         this.encryptEntity.getData().forEach(ed -> {
             try {
@@ -79,7 +79,7 @@ public class CertificatesDecoder {
                 } catch (IOException e) {
                 }
             } catch (GeneralSecurityException e) {
-                throw new WxErrorException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
+                throw new WxPayException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
             }
         });
         return decryptList;

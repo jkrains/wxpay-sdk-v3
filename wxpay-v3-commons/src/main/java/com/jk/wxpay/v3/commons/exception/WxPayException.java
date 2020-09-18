@@ -3,7 +3,7 @@ package com.jk.wxpay.v3.commons.exception;
 /**
  * 微信异常处理类。
  */
-public class WxErrorException extends RuntimeException {
+public class WxPayException extends RuntimeException {
 
     /**
      * 状态码， http的状态码。
@@ -13,7 +13,7 @@ public class WxErrorException extends RuntimeException {
     private String message;
     private WxErrorDetail detail;
 
-    public WxErrorException(int scode, String code, String message, WxErrorDetail detail) {
+    public WxPayException(int scode, String code, String message, WxErrorDetail detail) {
         super(message);
         this.scode =  scode;
         this.code = code;
@@ -21,32 +21,32 @@ public class WxErrorException extends RuntimeException {
         this.detail = detail;
     }
 
-    public WxErrorException(int scode, String code, String message) {
+    public WxPayException(int scode, String code, String message) {
         super(message);
         this.scode = scode;
         this.code = code;
         this.message = message;
     }
 
-    public WxErrorException(String code, String message, WxErrorDetail detail) {
+    public WxPayException(String code, String message, WxErrorDetail detail) {
         this(0, code, message, detail);
     }
 
-    public WxErrorException(String code, String message) {
+    public WxPayException(String code, String message) {
         this(0, code, message);
     }
 
-    public WxErrorException(String message) {
+    public WxPayException(String message) {
         super(message);
     }
 
-    public WxErrorException() {}
+    public WxPayException() {}
 
     public int getScode() {
         return scode;
     }
 
-    public WxErrorException setScode(int scode) {
+    public WxPayException setScode(int scode) {
         this.scode = scode;
         return this;
     }
@@ -55,7 +55,7 @@ public class WxErrorException extends RuntimeException {
         return code;
     }
 
-    public WxErrorException setCode(String code) {
+    public WxPayException setCode(String code) {
         this.code = code;
         return this;
     }
@@ -65,7 +65,7 @@ public class WxErrorException extends RuntimeException {
         return message;
     }
 
-    public WxErrorException setMessage(String message) {
+    public WxPayException setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -74,7 +74,7 @@ public class WxErrorException extends RuntimeException {
         return detail;
     }
 
-    public WxErrorException setDetail(WxErrorDetail detail) {
+    public WxPayException setDetail(WxErrorDetail detail) {
         this.detail = detail;
         return this;
     }

@@ -114,7 +114,7 @@ import com.jk.wxpay.v3.commons.bean.direct.JSAPIPrepayOrder;
 import com.jk.wxpay.v3.commons.bean.direct.PrepayOrder;
 import com.jk.wxpay.v3.commons.bean.direct.result.NativePrepayResult;
 import com.jk.wxpay.v3.commons.bean.direct.result.PrepayResult;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 private ApiContext init() {
     

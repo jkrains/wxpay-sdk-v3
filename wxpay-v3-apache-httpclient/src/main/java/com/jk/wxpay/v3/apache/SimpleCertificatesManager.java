@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.apache;
 
 import com.jk.wxpay.v3.block.WxCertificatesManager;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 
 import java.io.InputStream;
@@ -35,7 +35,7 @@ public class SimpleCertificatesManager implements WxCertificatesManager {
             }
             return this.x509Certificate;
         } catch (CertificateException | IllegalArgumentException e) {
-            throw  new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw  new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         }
     }
 }

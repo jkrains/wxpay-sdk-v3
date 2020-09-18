@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorDetail;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 /**
  * json 的转换，默认采用gson.
@@ -31,14 +31,14 @@ public class JsonUtils {
      * @param errorJson
      * @return
      */
-    public static WxErrorException parseError(int statusCode, String errorJson) {
+    public static WxPayException parseError(int statusCode, String errorJson) {
         // error, need to returns error.
         JsonElement jsonElement = JsonParser.parseString(errorJson);
         if (jsonElement.isJsonObject()) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String code = jsonObject.get("code").getAsString();
             String message = jsonObject.get("message").getAsString();
-            WxErrorException errorException = new WxErrorException();
+            WxPayException errorException = new WxPayException();
             errorException.setScode(statusCode);
             errorException.setCode(code);
             errorException.setMessage(message);
@@ -56,7 +56,7 @@ public class JsonUtils {
             }
             return errorException;
         } else {
-            return new WxErrorException(WxErrorCode.NOT_SUPPORTED_TYPE, "other error json object is not supported");
+            return new WxPayException(WxErrorCode.NOT_SUPPORTED_TYPE, "other error json object is not supported");
         }
     }
 }

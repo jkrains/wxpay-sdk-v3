@@ -2,7 +2,7 @@ package com.jk.wxpay.v3.flux.http.filter;
 
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.AuthorizationUtils;
 import com.jk.wxpay.v3.flux.http.filter.extractor.RequestExtractor;
 import com.jk.wxpay.v3.commons.Constants;
@@ -72,11 +72,11 @@ public class ExchangeFilter implements ExchangeFilterFunction {
                         .build();
                 return Mono.just(new ApplyRequestHolder(newRequest, mchId));
             } catch (NoSuchAlgorithmException e) {
-                return Mono.error(new WxErrorException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage()));
+                return Mono.error(new WxPayException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage()));
             } catch (InvalidKeyException e) {
-                return Mono.error(new WxErrorException(WxErrorCode.INVALID_KEY, e.getMessage()));
+                return Mono.error(new WxPayException(WxErrorCode.INVALID_KEY, e.getMessage()));
             } catch (SignatureException e) {
-                return Mono.error(new WxErrorException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage()));
+                return Mono.error(new WxPayException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage()));
             }
         });
     }
@@ -129,7 +129,7 @@ public class ExchangeFilter implements ExchangeFilterFunction {
                 return next.exchange(request);
             }
         } else {
-            return Mono.error(new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Http header should contains jk_mchId"));
+            return Mono.error(new WxPayException(WxErrorCode.ILLEGAL_ARG, "Http header should contains jk_mchId"));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.apache.http.filter;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.ValidationUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -105,18 +105,18 @@ public class FilterUtils {
             String body = getResponseBody(response);
             boolean valid = ValidationUtil.validate(certificate, timestamp, nonce, body, signature);
             if (!valid) {
-                throw new WxErrorException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
+                throw new WxPayException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
             } else {
                 return response;
             }
         } catch (NoSuchAlgorithmException e) {
-            throw new WxErrorException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
+            throw new WxPayException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
         } catch (InvalidKeyException e) {
-            throw new WxErrorException(WxErrorCode.INVALID_KEY, e.getMessage());
+            throw new WxPayException(WxErrorCode.INVALID_KEY, e.getMessage());
         } catch (SignatureException e) {
-            throw new WxErrorException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
+            throw new WxPayException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
         } catch (IOException e) {
-            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         }
     }
 }

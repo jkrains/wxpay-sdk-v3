@@ -2,7 +2,7 @@ package com.jk.wxpay.v3.block.request;
 
 
 
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public interface RequestClient {
             String subPath,
             Map<String, Object> params,
             Map<String, String> headers,
-            Object body) throws WxErrorException;
+            Object body) throws WxPayException;
 
     boolean available();
 }

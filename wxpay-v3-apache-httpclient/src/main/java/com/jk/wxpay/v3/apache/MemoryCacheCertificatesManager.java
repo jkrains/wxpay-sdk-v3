@@ -8,7 +8,7 @@ import com.jk.wxpay.v3.block.request.ApiContext;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -66,10 +66,10 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
             if (certificate != null) {
                 return certificate;
             } else {
-                throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
+                throw new WxPayException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
             }
         } else {
-            throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
+            throw new WxPayException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
         }
     }
 

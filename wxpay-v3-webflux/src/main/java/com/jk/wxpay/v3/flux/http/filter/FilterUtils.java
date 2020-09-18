@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.flux.http.filter;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.ValidationUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -92,14 +92,14 @@ public class FilterUtils {
                     if (valid) {
                         return ClientResponse.create(response.statusCode()).body(body).build();
                     } else {
-                        throw new WxErrorException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
+                        throw new WxPayException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
                     }
                 } catch (NoSuchAlgorithmException e) {
-                    throw new WxErrorException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
+                    throw new WxPayException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
                 } catch (InvalidKeyException e) {
-                    throw new WxErrorException(WxErrorCode.INVALID_KEY, e.getMessage());
+                    throw new WxPayException(WxErrorCode.INVALID_KEY, e.getMessage());
                 } catch (SignatureException e) {
-                    throw new WxErrorException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
+                    throw new WxPayException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
                 }
             });
         });

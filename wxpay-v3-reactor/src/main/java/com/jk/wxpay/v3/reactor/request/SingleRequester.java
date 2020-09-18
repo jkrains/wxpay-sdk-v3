@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.reactor.request;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.JsonUtils;
 import reactor.core.publisher.Mono;
 
@@ -59,11 +59,11 @@ public class SingleRequester<T, R> {
                 if (r instanceof String) {
                     return String.class.cast(r);
                 } else {
-                    throw  new WxErrorException(WxErrorCode.NOT_SUPPORTED_TYPE, "returns not supported");
+                    throw  new WxPayException(WxErrorCode.NOT_SUPPORTED_TYPE, "returns not supported");
                 }
             });
         } else {
-            return Mono.error(new WxErrorException(WxErrorCode.ILLEGAL_ARG, "apiContext is invalid"));
+            return Mono.error(new WxPayException(WxErrorCode.ILLEGAL_ARG, "apiContext is invalid"));
         }
     }
 

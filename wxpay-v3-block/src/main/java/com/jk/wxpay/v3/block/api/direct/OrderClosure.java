@@ -4,12 +4,8 @@ import com.jk.wxpay.v3.block.request.ApiContext;
 import com.jk.wxpay.v3.block.request.SingleRequester;
 import com.jk.wxpay.v3.commons.bean.direct.MerchantId;
 import com.jk.wxpay.v3.commons.Constants;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.RequestUtils;
-
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -38,7 +34,7 @@ public class OrderClosure extends SingleRequester<MerchantId, Void> {
      * @param outTradeNo  商户订单号。
      * @return
      */
-    public void close(String mchid, String outTradeNo) throws WxErrorException {
+    public void close(String mchid, String outTradeNo) throws WxPayException {
         String subPath = "/" + outTradeNo + "/close";
         super.post(subPath, RequestUtils.createParamsWith(mchid),
                 RequestUtils.createHeadersWith(mchid), new MerchantId(mchid));

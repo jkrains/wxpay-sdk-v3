@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.block.api.direct.query;
 
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 public interface OrderQuery {
     /**
@@ -9,5 +9,5 @@ public interface OrderQuery {
      * @param id
      * @return
      */
-    OrderQueryResult query(String mchId, String id) throws WxErrorException;
+    OrderQueryResult query(String mchId, String id) throws WxPayException;
 }

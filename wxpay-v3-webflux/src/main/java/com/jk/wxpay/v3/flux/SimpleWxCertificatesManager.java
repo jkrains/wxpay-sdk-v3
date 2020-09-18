@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.flux;
 
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 import com.jk.wxpay.v3.reactor.WxCertificatesManager;
 import reactor.core.publisher.Mono;
@@ -36,7 +36,7 @@ public class SimpleWxCertificatesManager implements WxCertificatesManager {
             }
             return Mono.just(this.x509Certificate);
         } catch (CertificateException | IllegalArgumentException e) {
-            return Mono.error(new WxErrorException(e.getClass().getSimpleName(), e.getMessage()));
+            return Mono.error(new WxPayException(e.getClass().getSimpleName(), e.getMessage()));
         }
     }
 }

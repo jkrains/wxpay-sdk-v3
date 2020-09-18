@@ -5,7 +5,7 @@ import com.jk.wxpay.v3.block.WxCertificatesManager;
 import com.jk.wxpay.v3.block.request.ApiContext;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,11 +41,11 @@ public class ApiContextBuilder {
      */
     public ApiContext build() {
         if (this.hostUrl == null || "".equals(this.hostUrl)) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "BaseUrl is null or empty.");
+            throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "BaseUrl is null or empty.");
         }
 
         if (merchantPrivateKeyManager == null) {
-            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Merchant private key manager is null");
+            throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "Merchant private key manager is null");
         }
 
         if (wxCertificatesManager == null) {

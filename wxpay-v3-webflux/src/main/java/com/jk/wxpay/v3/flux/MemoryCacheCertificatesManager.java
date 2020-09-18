@@ -2,7 +2,7 @@ package com.jk.wxpay.v3.flux;
 
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.flux.http.ApiContextBuilder;
 import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.reactor.WxCertificatesManager;
@@ -64,7 +64,7 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
             if (certificate != null) {
                 return certificate;
             } else {
-                throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
+                throw new WxPayException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
             }
         });
     }

@@ -4,7 +4,7 @@ import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.block.WxCertificatesManager;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
-import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.commons.util.AuthorizationUtils;
 
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -12,7 +12,6 @@ import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpExecutionAware;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestWrapper;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.conn.routing.HttpRoute;
@@ -109,13 +108,13 @@ public class ExchangeFilter implements ClientExecChain {
             wrapper.addHeader("Authorization",
                     FilterUtils.getSchema() + " " + authorizationInfo);
         } catch (NoSuchAlgorithmException e) {
-            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         } catch (InvalidKeyException e) {
-            throw  new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw  new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         } catch (SignatureException e) {
-            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         } catch (IOException e) {
-            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
         }
     }
 }
