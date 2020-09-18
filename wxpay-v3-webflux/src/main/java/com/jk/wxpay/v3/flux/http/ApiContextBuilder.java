@@ -1,10 +1,11 @@
 package com.jk.wxpay.v3.flux.http;
 
+import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxPayException;
 import com.jk.wxpay.v3.flux.http.filter.ExchangeFilter;
-import com.jk.wxpay.v3.reactor.request.ApiContext;
+
 import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.reactor.WxCertificatesManager;
 import org.slf4j.Logger;

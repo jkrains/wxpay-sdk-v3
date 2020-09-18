@@ -9,7 +9,14 @@ version = '0.0.1'
 sourceCompatibility = '1.8'
 
 repositories {
-    mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    maven {
+        url "http://nexus.jikeyiyong.com/repository/maven-public/"
+        credentials {
+            username "jk-maven-caller"
+            password "20200223maven"
+        }
+    }
 }
 
 dependencies {
@@ -20,6 +27,9 @@ dependencies {
 
     implementation project(':wxpay-v3-block')
     implementation project(':wxpay-v3-apache-httpclient')
+
+    implementation "com.jk.sdk:sdk-commons-block:0.0.2"
+    implementation "com.jk.sdk:sdk-commons-reactor:0.0.2"
 
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

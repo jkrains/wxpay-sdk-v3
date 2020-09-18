@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.reactor.api.direct.query;
 
+import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
-import com.jk.wxpay.v3.reactor.request.ApiContext;
 import reactor.core.publisher.Mono;
 
 /**

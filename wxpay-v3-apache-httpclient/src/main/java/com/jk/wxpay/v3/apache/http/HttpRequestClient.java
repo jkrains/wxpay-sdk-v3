@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.apache.http;
 
-import com.jk.wxpay.v3.block.request.RequestClient;
-import com.jk.wxpay.v3.block.request.RequestMethod;
+import com.jk.sdk.commons.block.RequestClient;
+import com.jk.sdk.commons.block.RequestMethod;
 import com.jk.wxpay.v3.commons.exception.StatusCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxPayException;

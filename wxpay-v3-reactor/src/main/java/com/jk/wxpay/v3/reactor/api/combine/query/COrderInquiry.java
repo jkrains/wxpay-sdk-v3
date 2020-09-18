@@ -1,11 +1,9 @@
 package com.jk.wxpay.v3.reactor.api.combine.query;
 
+import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.combine.result.COrderQueryResult;
-import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
-import com.jk.wxpay.v3.reactor.api.direct.query.OrderQuery;
-import com.jk.wxpay.v3.reactor.request.ApiContext;
-import com.jk.wxpay.v3.reactor.request.SingleRequester;
+import com.jk.wxpay.v3.reactor.api.SingleRequester;
 import reactor.core.publisher.Mono;
 
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;

@@ -1,16 +1,14 @@
 package com.jk.wxpay.v3.reactor.api;
 
+import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
-import com.jk.wxpay.v3.reactor.request.ApiContext;
-import com.jk.wxpay.v3.reactor.request.SingleRequester;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
-import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
 
 /**
  * 证书下载器，下载证书。

@@ -1,13 +1,9 @@
 package com.jk.wxpay.v3.block.api.direct.query;
 
-import com.jk.wxpay.v3.block.request.ApiContext;
-import com.jk.wxpay.v3.block.request.SingleRequester;
+import com.jk.sdk.commons.block.ApiContext;
+import com.jk.wxpay.v3.block.api.SingleRequester;
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;
 import com.jk.wxpay.v3.commons.Constants;
-
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;

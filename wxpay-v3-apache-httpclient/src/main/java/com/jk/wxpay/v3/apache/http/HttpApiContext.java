@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.apache.http;
 
-import com.jk.wxpay.v3.block.request.ApiContext;
-import com.jk.wxpay.v3.block.request.RequestClient;
+import com.jk.sdk.commons.block.ApiContext;
+import com.jk.sdk.commons.block.RequestClient;
 
 /**
  * Http Api Context.

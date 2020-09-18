@@ -1,8 +1,9 @@
 package com.jk.wxpay.v3.block.api.combine.prepay;
 
+import com.jk.sdk.commons.block.ApiContext;
 import com.jk.wxpay.v3.block.api.Prepay;
-import com.jk.wxpay.v3.block.request.ApiContext;
-import com.jk.wxpay.v3.block.request.SingleRequester;
+
+import com.jk.wxpay.v3.block.api.SingleRequester;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.combine.CPrepayOrder;
 import com.jk.wxpay.v3.commons.bean.direct.result.NativePrepayResult;

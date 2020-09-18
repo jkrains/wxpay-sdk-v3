@@ -1,10 +1,11 @@
 package com.jk.wxpay.v3.apache;
 
+import com.jk.sdk.commons.block.ApiContext;
 import com.jk.wxpay.v3.apache.http.ApiContextBuilder;
 import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.block.WxCertificatesManager;
 import com.jk.wxpay.v3.block.api.CertificatesDownloader;
-import com.jk.wxpay.v3.block.request.ApiContext;
+
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;

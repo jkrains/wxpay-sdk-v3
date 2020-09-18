@@ -1,28 +1,66 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'com.jk.wxpay'
-version '0.0.1-SNAPSHOT'
+version '0.0.1'
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    maven {
+        url "http://nexus.jikeyiyong.com/repository/maven-public/"
+        credentials {
+            username "jk-maven-caller"
+            password "20200223maven"
+        }
+    }
 }
 ext {
     junit_version = "4.12"
     logback_version = "1.2.3"
     gson_version = "2.8.6"
+    sdk_commons_reactor_verison = "0.0.2"
 }
 
 dependencies {
     implementation project(':wxpay-v3-commons')
     implementation project(':wxpay-v3-reactor')
-
+    
+    implementation "com.jk.sdk:sdk-commons-reactor:$sdk_commons_reactor_verison"
     implementation "ch.qos.logback:logback-classic:$logback_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "org.springframework:spring-webflux:5.2.7.RELEASE"
     testImplementation "junit:junit:$junit_version"
+}
+
+// 上传source
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+//上传至nexus
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            from components.java
+            artifact  sourcesJar
+        }
+    }
+    repositories {
+        maven {
+            url "http://nexus.jikeyiyong.com/repository/maven-releases/"
+            credentials {
+                username "maven-uploader"
+                password "jkmavenuploader"
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.jk.wxpay.v3.flux;
 
+import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
 import com.jk.wxpay.v3.commons.exception.WxPayException;
@@ -7,7 +8,7 @@ import com.jk.wxpay.v3.flux.http.ApiContextBuilder;
 import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.reactor.WxCertificatesManager;
 import com.jk.wxpay.v3.reactor.api.CertificatesDownloader;
-import com.jk.wxpay.v3.reactor.request.ApiContext;
+
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 

@@ -1,13 +1,9 @@
 package com.jk.wxpay.v3.block.api;
 
-import com.jk.wxpay.v3.block.request.ApiContext;
-import com.jk.wxpay.v3.block.request.SingleRequester;
+import com.jk.sdk.commons.block.ApiContext;
 import com.jk.wxpay.v3.commons.Constants;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
 import com.jk.wxpay.v3.commons.util.RequestUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 证书下载器，下载证书。
