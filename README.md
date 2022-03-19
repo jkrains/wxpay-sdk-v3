@@ -1,19 +1,10 @@
 # wxpay-sdk说明
+
 > 我们在开发微信支付时，发现微信官方已经对SDK做了升级，V3版本的SDK从设计上符合RESTful规范。 我们再在开源库中寻找是否有现成的开箱即用、并且支持响应式编程的SDK版本。经过一凡寻找，令我们失望。github上的一些微信支付SDK版本，从设计上多多少少都有一些问题，因此我们决定重新开发一套基于Java的V3版本的支付SDK， 并且用于我们的产品。
-
-
 
 微信支付v3版本的sdk, 目前包含同步API和异步API。用户可以使用此API 版本在传统的命令式编程模式上，也可以使用异步API用于响应式编程。目前只支持微信 ==直连模式== 支付。
 
 本SDK支持多商户模式。
-
-对本项目认可，需要一块开发或者相互讨论:
-
-加QQ群：973663101
-
-群名称：微信-支付宝/支付/聚合支付
-
-
 
 ## 同步API
 
@@ -21,33 +12,37 @@
 
 ## 异步API
 
-同时，我们也支持了异步接口，异步实现采用Project reactor。httpClient采用Spring Webflux的WebClient。 
+同时，我们也支持了异步接口，异步实现采用Project reactor。httpClient采用Spring Webflux的WebClient。
 
 ## 模块说明
 
 - wxpay-v3-commons
+
   - 微信v3接口的公共类定义， 同步异步均继承这个类，抽象了一些支付需要的公共方法和类放在这个模块中。
+
 - wxpay-v3-reactor
+
   - 微信v3的SDK, 基于ProjectReactor 封装了一些接口，和实现了一些API。本模块不依赖于Spring， 可以不在spring环境下使用。
+
 - wxpay-v3-webflux
+
   - 微信v3的SDK, 基于webflux来实现。 适用于spring环境。 用户可以用于异步或同步模式。 签名函数在拦截器中实现。
-- wxpay-v3-block 
-  
+
+- wxpay-v3-block
+
   - 基于命令式编程，封装了一些支付接口和实现了一些API。 本模块不依赖于其他框架，可以使用在任何java环境下。
+
 - wxpay-v3-apache-httpclient
+
   - 基于apache httpClient而实现的的版本。
 
 **模块之间的依赖关系**(如果不想使用本SDK封装的接口，用户可以依赖wxpay-v3-commons模块自己封装API)
 
 ![relations](relations.png)
 
-
-
 **同步接口请使用 wxpay-v3-apache-httpclient。**
 
 **异步接口请使用wxpay-v3-webflux。**
-
-
 
 ## 实现的API
 
@@ -55,39 +50,34 @@
 
 直连模式API描述
 
-| 类型     | API名称                 | 支持同步 | 支持异步 | 说明                                 |
-| -------- | ----------------------- | -------- | -------- | ------------------------------------ |
-| 预下单   | AppPrepay               | 是       | 是       | APP下单API                           |
-| 预下单   | H5Prepay                | 是       | 是       | H5下单API                            |
-| 预下单   | JSApiPrepay             | 是       | 是       | JSAPI下单API                         |
-| 预下单   | NativePrepay            | 是       | 是       | Native下单API                        |
-| 订单查询 | OrderTradeNoInquiry     | 是       | 是       | 通过商户订单号查询                   |
-| 订单查询 | OrderTransactionInquiry | 是       | 是       | 通过微信支付订单号查询               |
-| 订单查询 | OrderInquiry            | 是       | 是       | 通过商户订单号或者微信支付订单号查询 |
-| 订单关闭 | OrderClosure            | 是       | 是       | 订单关闭                             |
-| 证书下载 | CertificatesDownloader  | 是       | 是       | 微信证书下载                         |
-
-
+|类型|API名称|支持同步|支持异步|说明|
+|-|-|-|-|-|
+|预下单|AppPrepay|是|是|APP下单API|
+|预下单|H5Prepay|是|是|H5下单API|
+|预下单|JSApiPrepay|是|是|JSAPI下单API|
+|预下单|NativePrepay|是|是|Native下单API|
+|订单查询|OrderTradeNoInquiry|是|是|通过商户订单号查询|
+|订单查询|OrderTransactionInquiry|是|是|通过微信支付订单号查询|
+|订单查询|OrderInquiry|是|是|通过商户订单号或者微信支付订单号查询|
+|订单关闭|OrderClosure|是|是|订单关闭|
+|证书下载|CertificatesDownloader|是|是|微信证书下载|
 
 直连合单模式的AP描述(前缀添加"C")
 
-| 类型     | API名称       | 支持同步 | 支持异步 | 说明                                     |
-| -------- | ------------- | -------- | -------- | ---------------------------------------- |
-| 预下单   | CAppPrepay    | 是       | 是       | 合单APP下单API                           |
-| 预下单   | CH5Prepay     | 是       | 是       | 合单H5下单API                            |
-| 预下单   | CJSApiPrepay  | 是       | 是       | 合单JSAPI下单API                         |
-| 预下单   | CNativePrepay | 是       | 是       | 合单Native下单API                        |
-| 订单查询 | COrderInquiry | 是       | 是       | 合单通过商户订单号或者微信支付订单号查询 |
-| 订单关闭 | COrderClosure | 是       | 是       | 合单订单关闭                             |
-
-
+|类型|API名称|支持同步|支持异步|说明|
+|-|-|-|-|-|
+|预下单|CAppPrepay|是|是|合单APP下单API|
+|预下单|CH5Prepay|是|是|合单H5下单API|
+|预下单|CJSApiPrepay|是|是|合单JSAPI下单API|
+|预下单|CNativePrepay|是|是|合单Native下单API|
+|订单查询|COrderInquiry|是|是|合单通过商户订单号或者微信支付订单号查询|
+|订单关闭|COrderClosure|是|是|合单订单关闭|
 
 # 注意
 
-- 该模块只支持微信v3版本的SDK. 其他v1, v2版本不支持。 
+- 该模块只支持微信v3版本的SDK. 其他v1, v2版本不支持。
+
 - 对于JSON的解析，本SDK 依赖于Gson来解析。
-
-
 
 # 使用方法
 
@@ -96,6 +86,7 @@
 ### 使用步骤
 
 1. 构建ApiContext.
+
 2. 构建对象调用接口
 
 ### 构建ApiContext示例代码
@@ -174,8 +165,6 @@ try {
 // ........其他支付接口不再演示。
 ```
 
-
-
 ### 关闭订单
 
 ```java
@@ -201,16 +190,14 @@ try {
     e.printStackTrace();
 }
         
-
 ```
-
-
 
 ## 异步接口
 
 ### 使用步骤
 
 1. 构建ApiContext.
+
 2. 构建对象调用接口
 
 ### 构建ApiContext示例代码
@@ -282,8 +269,6 @@ jsApiPrepay.prepay(prepayOrder).subscribe(result -> {
 // ........其他支付接口不再演示。
 ```
 
-
-
 ### 关闭订单
 
 ```java
@@ -306,14 +291,11 @@ orderInquiry.queryByWechatTransactionId("mchId", "transactionId").subscribe(resu
     // do something.
 }, e -> System.out.println());
         
-
 ```
 
+## 证书管理
 
-
-##  证书管理
-
-提供了两个简单的私钥和证书管理器的接口， 用户可根据实际应用场景实现这两个接口，并初始化SDK。 
+提供了两个简单的私钥和证书管理器的接口， 用户可根据实际应用场景实现这两个接口，并初始化SDK。
 
 ```java
 
@@ -332,12 +314,11 @@ MemoryCacheCertificatesManager   // 自动更新证书管理器，更新证书�
 SimpleMerchantPrivateKeyManager  // 简单的商户私钥服务，从resource 中初始化。
 ```
 
-
-
-
 # 帮助
 
-
+如果你想了解更多相关知识，可以添加如下公众号了解更多编程知识：
+![](./2wbiggg7sv843ovo6oh.jpg)
 
 # roadmap
+
 1. 后续支持服务商模式。
