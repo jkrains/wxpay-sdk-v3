@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 单品列表信息
@@ -15,7 +15,7 @@ public class GoodsDetail {
      * 示例值：商品编码
      * [r]
      */
-    @SerializedName("merchant_goods_id")
+    @JsonProperty("merchant_goods_id")
     private String merchantGoodsId;
 
     /**
@@ -24,14 +24,14 @@ public class GoodsDetail {
      * 示例值：1001
      * [o]
      */
-    @SerializedName("wechatpay_goods_id")
+    @JsonProperty("wechatpay_goods_id")
     private String wxpayGoodsId;
 
     /**
      * 商品的实际名称
      * [o]
      */
-    @SerializedName("goods_name")
+    @JsonProperty("goods_name")
     private String goodsName;
 
     /**
@@ -46,7 +46,7 @@ public class GoodsDetail {
      * 示例值：828800
      * [r]
      */
-    @SerializedName("unit_price")
+    @JsonProperty("unit_price")
     private Integer unitPrice;
 
     public GoodsDetail() {

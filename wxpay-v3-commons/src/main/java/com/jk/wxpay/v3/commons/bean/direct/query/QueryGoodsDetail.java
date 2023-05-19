@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.query;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 查询结果如果有值，则返回。
@@ -13,7 +13,7 @@ public class QueryGoodsDetail {
      * 示例值：M1006
      * [r]
      */
-    @SerializedName("goods_id")
+    @JsonProperty("goods_id")
     private String goodsId;
 
     /**
@@ -27,7 +27,7 @@ public class QueryGoodsDetail {
      * 示例值：828800
      * [r]
      */
-    @SerializedName("unit_price")
+    @JsonProperty("unit_price")
     private Integer unitPrice;
 
     /**
@@ -35,7 +35,7 @@ public class QueryGoodsDetail {
      * 示例值：0
      * [r]
      */
-    @SerializedName("discount_amount")
+    @JsonProperty("discount_amount")
     private Integer discountAmount;
 
     /**
@@ -43,7 +43,7 @@ public class QueryGoodsDetail {
      * 示例值：商品备注信息
      * [o]
      */
-    @SerializedName("goods_remark")
+    @JsonProperty("goods_remark")
     private String goodsRemark;
 
     public QueryGoodsDetail() {

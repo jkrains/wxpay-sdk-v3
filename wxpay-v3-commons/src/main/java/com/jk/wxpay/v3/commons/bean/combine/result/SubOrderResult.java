@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.combine.result;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jk.wxpay.v3.commons.bean.direct.PayPlayer;
 import com.jk.wxpay.v3.commons.bean.direct.SceneInfo;
 import com.jk.wxpay.v3.commons.bean.direct.query.QueryOrderAmount;
@@ -14,7 +14,7 @@ public class SubOrderResult {
      * 示例值：1230000109
      * [r]
      */
-    @SerializedName("mchid")
+    @JsonProperty("mchid")
     private String mchId;
 
 
@@ -30,7 +30,7 @@ public class SubOrderResult {
      * 示例值：MICROPAY
      * [r]
      */
-    @SerializedName("trade_type")
+    @JsonProperty("trade_type")
     private String tradeType;
 
     /**
@@ -45,7 +45,7 @@ public class SubOrderResult {
      * 示例值：SUCCESS
      * [r]
      */
-    @SerializedName("trade_state")
+    @JsonProperty("trade_state")
     private String tradeState;
 
 
@@ -54,7 +54,7 @@ public class SubOrderResult {
      * 示例值：CMC
      * [o]
      */
-    @SerializedName("bank_type")
+    @JsonProperty("bank_type")
     private String bankType;
 
     /**
@@ -72,14 +72,14 @@ public class SubOrderResult {
      * 示例值：2018-06-08T10:34:56+08:00
      * [o]
      */
-    @SerializedName("success_time")
+    @JsonProperty("success_time")
     private String successTime;
 
     /**
      * 微信支付订单号。
      * 示例值：1009660380201506130728806387
      */
-    @SerializedName("transaction_id")
+    @JsonProperty("transaction_id")
     private String transactionId;
 
     /**
@@ -87,7 +87,7 @@ public class SubOrderResult {
      * 示例值：20150806125346
      * [r]
      */
-    @SerializedName("out_trade_no")
+    @JsonProperty("out_trade_no")
     private String outTradeNo;
 
     /**
@@ -96,7 +96,7 @@ public class SubOrderResult {
      * 示例值：1900000109
      * [r]
      */
-    @SerializedName("sub_mchid")
+    @JsonProperty("sub_mchid")
     private String subMchId;
     /**
      * 订单金额信息，当支付成功时返回该字段
@@ -108,7 +108,7 @@ public class SubOrderResult {
      * 支付场景描述
      * [o]
      */
-    @SerializedName("scene_info")
+    @JsonProperty("scene_info")
     private SceneInfo sceneInfo;
 
     public SubOrderResult() {

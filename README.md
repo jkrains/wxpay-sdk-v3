@@ -19,19 +19,15 @@
 - wxpay-v3-commons
 
   - 微信v3接口的公共类定义， 同步异步均继承这个类，抽象了一些支付需要的公共方法和类放在这个模块中。
-
 - wxpay-v3-reactor
 
   - 微信v3的SDK, 基于ProjectReactor 封装了一些接口，和实现了一些API。本模块不依赖于Spring， 可以不在spring环境下使用。
-
 - wxpay-v3-webflux
 
   - 微信v3的SDK, 基于webflux来实现。 适用于spring环境。 用户可以用于异步或同步模式。 签名函数在拦截器中实现。
-
 - wxpay-v3-block
 
   - 基于命令式编程，封装了一些支付接口和实现了一些API。 本模块不依赖于其他框架，可以使用在任何java环境下。
-
 - wxpay-v3-apache-httpclient
 
   - 基于apache httpClient而实现的的版本。
@@ -50,33 +46,32 @@
 
 直连模式API描述
 
-|类型|API名称|支持同步|支持异步|说明|
-|-|-|-|-|-|
-|预下单|AppPrepay|是|是|APP下单API|
-|预下单|H5Prepay|是|是|H5下单API|
-|预下单|JSApiPrepay|是|是|JSAPI下单API|
-|预下单|NativePrepay|是|是|Native下单API|
-|订单查询|OrderTradeNoInquiry|是|是|通过商户订单号查询|
-|订单查询|OrderTransactionInquiry|是|是|通过微信支付订单号查询|
-|订单查询|OrderInquiry|是|是|通过商户订单号或者微信支付订单号查询|
-|订单关闭|OrderClosure|是|是|订单关闭|
-|证书下载|CertificatesDownloader|是|是|微信证书下载|
+| 类型     | API名称                 | 支持同步 | 支持异步 | 说明                                 |
+| -------- | ----------------------- | -------- | -------- | ------------------------------------ |
+| 预下单   | AppPrepay               | 是       | 是       | APP下单API                           |
+| 预下单   | H5Prepay                | 是       | 是       | H5下单API                            |
+| 预下单   | JSApiPrepay             | 是       | 是       | JSAPI下单API                         |
+| 预下单   | NativePrepay            | 是       | 是       | Native下单API                        |
+| 订单查询 | OrderTradeNoInquiry     | 是       | 是       | 通过商户订单号查询                   |
+| 订单查询 | OrderTransactionInquiry | 是       | 是       | 通过微信支付订单号查询               |
+| 订单查询 | OrderInquiry            | 是       | 是       | 通过商户订单号或者微信支付订单号查询 |
+| 订单关闭 | OrderClosure            | 是       | 是       | 订单关闭                             |
+| 证书下载 | CertificatesDownloader  | 是       | 是       | 微信证书下载                         |
 
 直连合单模式的AP描述(前缀添加"C")
 
-|类型|API名称|支持同步|支持异步|说明|
-|-|-|-|-|-|
-|预下单|CAppPrepay|是|是|合单APP下单API|
-|预下单|CH5Prepay|是|是|合单H5下单API|
-|预下单|CJSApiPrepay|是|是|合单JSAPI下单API|
-|预下单|CNativePrepay|是|是|合单Native下单API|
-|订单查询|COrderInquiry|是|是|合单通过商户订单号或者微信支付订单号查询|
-|订单关闭|COrderClosure|是|是|合单订单关闭|
+| 类型     | API名称       | 支持同步 | 支持异步 | 说明                                     |
+| -------- | ------------- | -------- | -------- | ---------------------------------------- |
+| 预下单   | CAppPrepay    | 是       | 是       | 合单APP下单API                           |
+| 预下单   | CH5Prepay     | 是       | 是       | 合单H5下单API                            |
+| 预下单   | CJSApiPrepay  | 是       | 是       | 合单JSAPI下单API                         |
+| 预下单   | CNativePrepay | 是       | 是       | 合单Native下单API                        |
+| 订单查询 | COrderInquiry | 是       | 是       | 合单通过商户订单号或者微信支付订单号查询 |
+| 订单关闭 | COrderClosure | 是       | 是       | 合单订单关闭                             |
 
 # 注意
 
 - 该模块只支持微信v3版本的SDK. 其他v1, v2版本不支持。
-
 - 对于JSON的解析，本SDK 依赖于Gson来解析。
 
 # 使用方法
@@ -86,7 +81,6 @@
 ### 使用步骤
 
 1. 构建ApiContext.
-
 2. 构建对象调用接口
 
 ### 构建ApiContext示例代码
@@ -108,16 +102,16 @@ import com.jk.wxpay.v3.commons.bean.direct.result.PrepayResult;
 import com.jk.wxpay.v3.commons.exception.WxPayException;
 
 private ApiContext init() {
-    
+  
     // 构建商户私钥管理器， 一个简单的管理。
     SimpleMerchantPrivateKeyManager privateKeyManager = new SimpleMerchantPrivateKeyManager()
         .setCertSerialNumber("xxxxx")    // 商户证书编号。
         .setPrivateKeyPath("cert/my-cert-key.pem")  // 账户私钥文件
         .setApiV3Key("xxxxxx");   // 商户在微信商户平台上的apiV3key。
-	
+
     // 构建微信证书管理器， 这个管理器默认证书自动下载，且存储在内存中。
     MemoryCacheCertificatesManager certificatesManager = new MemoryCacheCertificatesManager(privateKeyManager);
-	
+
     // 构建apiContext.
     ApiContext apiContext = new ApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager)
         .setWxCertificatesManager(certificatesManager).build();
@@ -189,7 +183,7 @@ try {
 } catch (WxErrorException e) {
     e.printStackTrace();
 }
-        
+      
 ```
 
 ## 异步接口
@@ -197,7 +191,6 @@ try {
 ### 使用步骤
 
 1. 构建ApiContext.
-
 2. 构建对象调用接口
 
 ### 构建ApiContext示例代码
@@ -217,16 +210,16 @@ import com.jk.wxpay.v3.reactor.api.direct.query.OrderInquiry;
 import com.jk.wxpay.v3.reactor.request.ApiContext;
 // 类名基本相同。
 private ApiContext init() {
-    
+  
     // 构建商户私钥管理器， 一个简单的管理。
     SimpleMerchantPrivateKeyManager privateKeyManager = new SimpleMerchantPrivateKeyManager()
         .setCertSerialNumber("xxxxx")    // 商户证书编号。
         .setPrivateKeyPath("cert/my-cert-key.pem")  // 账户私钥文件
         .setApiV3Key("xxxxxx");   // 商户在微信商户平台上的apiV3key。
-	
+
     // 构建微信证书管理器， 这个管理器默认证书自动下载，且存储在内存中。
     MemoryCacheCertificatesManager certificatesManager = new MemoryCacheCertificatesManager(privateKeyManager);
-	
+
     // 构建apiContext.
     ApiContext apiContext = new ApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager)
         .setWxCertificatesManager(certificatesManager).build();
@@ -290,7 +283,7 @@ orderInquiry.queryByOutTradeNo("mchId", "outTradeNo").subscribe(result -> {
 orderInquiry.queryByWechatTransactionId("mchId", "transactionId").subscribe(result -> {
     // do something.
 }, e -> System.out.println());
-        
+      
 ```
 
 ## 证书管理
@@ -301,10 +294,10 @@ orderInquiry.queryByWechatTransactionId("mchId", "transactionId").subscribe(resu
 
 // 商户私钥管理器接口。用于管理商户的私钥。
 MerchantPrivateKeyManager
-// 商户对应的微信端证书管理器接口。     
+// 商户对应的微信端证书管理器接口。   
 WxCertificatesManager
-    
-    
+  
+  
 ```
 
 我们提供了两个简单的管理器
@@ -318,6 +311,10 @@ SimpleMerchantPrivateKeyManager  // 简单的商户私钥服务，从resource �
 
 如果你想了解更多相关知识，可以添加如下公众号了解更多编程知识：
 ![](./2wbiggg7sv843ovo6oh.jpg)
+
+或者加微信群，注意扫码后，需要用手机再次识别二维码方可添加， 微信群二维码有过期时间
+
+![](./group-qrcode.png)
 
 # roadmap
 

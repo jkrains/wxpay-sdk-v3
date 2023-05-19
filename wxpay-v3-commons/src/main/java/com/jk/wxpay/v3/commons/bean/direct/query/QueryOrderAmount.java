@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.query;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 查询订单的金额结果。
@@ -16,7 +16,7 @@ public class QueryOrderAmount {
      * 用户支付金额，单位为分。
      * 示例值：100
      */
-    @SerializedName("payer_total")
+    @JsonProperty("payer_total")
     private Integer payerTotal;
 
     /**
@@ -29,7 +29,7 @@ public class QueryOrderAmount {
      * 用户支付币种
      * 示例值：CNY
      */
-    @SerializedName("payer_currency")
+    @JsonProperty("payer_currency")
     private String payerCurrency;
 
     public QueryOrderAmount() {

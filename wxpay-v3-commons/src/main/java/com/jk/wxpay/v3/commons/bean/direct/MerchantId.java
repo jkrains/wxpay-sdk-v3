@@ -1,13 +1,13 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 商户号的json格式。
  */
 public class MerchantId {
 
-    @SerializedName("mchid")
+    @JsonProperty("mchid")
     private String mchId;
 
     public MerchantId(String mchId) {

@@ -4,8 +4,8 @@ import com.jk.wxpay.v3.commons.bean.cert.DecryptCertificateDescription;
 import com.jk.wxpay.v3.commons.bean.cert.DecryptCertificateEntity;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificate;
 import com.jk.wxpay.v3.commons.bean.cert.EncryptCertificateEntity;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
-import com.jk.wxpay.v3.commons.util.AesUtil;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.commons.util.AesUtils;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 
 import java.io.ByteArrayInputStream;
@@ -37,9 +37,9 @@ public class CertificatesDecoder {
     /**
      * 转换成解密后的实体类。
      * @return
-     * @throws WxPayException
+     * @throws WxErrorException
      */
-    public DecryptCertificateEntity decodeToEntity() throws WxPayException {
+    public DecryptCertificateEntity decodeToEntity() throws WxErrorException {
         List<DecryptCertificateDescription> decryptList = new ArrayList<>();
         this.encryptEntity.getData().forEach(ed -> {
             try {
@@ -48,12 +48,12 @@ public class CertificatesDecoder {
                 decryptItem.setSerialNo(ed.getSerialNo())
                         .setEffectiveTime(ed.getEffectiveTime())
                         .setExpireTime(ed.getExpireTime())
-                        .setCertText(AesUtil.decryptToString(apiV3Key.getBytes(),
+                        .setCertText(AesUtils.decryptToString(apiV3Key.getBytes(),
                                 certificate.getAssociatedData().getBytes(),
                                 certificate.getNonce().getBytes(), certificate.getCipherText()));
                 decryptList.add(decryptItem);
             } catch (GeneralSecurityException e) {
-                throw new WxPayException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
+                throw new WxErrorException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
             }
         });
         return new DecryptCertificateEntity(decryptList);
@@ -63,12 +63,12 @@ public class CertificatesDecoder {
      * 转换成java证书列表, 如果有无效的数据，该函数会抛出异常。
      * @return
      */
-    public List<X509Certificate> decodeToX509List() throws WxPayException {
+    public List<X509Certificate> decodeToX509List() throws WxErrorException {
         List<X509Certificate> decryptList = new ArrayList<>();
         this.encryptEntity.getData().forEach(ed -> {
             try {
                 EncryptCertificate certificate = ed.getEncryptCertificate();
-                String decryptText = AesUtil.decryptToString(apiV3Key.getBytes(),
+                String decryptText = AesUtils.decryptToString(apiV3Key.getBytes(),
                         certificate.getAssociatedData().getBytes(),
                         certificate.getNonce().getBytes(), certificate.getCipherText());
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(decryptText.getBytes(StandardCharsets.UTF_8));
@@ -79,7 +79,7 @@ public class CertificatesDecoder {
                 } catch (IOException e) {
                 }
             } catch (GeneralSecurityException e) {
-                throw new WxPayException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
+                throw new WxErrorException(GeneralSecurityException.class.getSimpleName(),e.getMessage());
             }
         });
         return decryptList;

@@ -1,7 +1,7 @@
 package com.jk.wxpay.v3.commons.bean.combine;
 
 /**
- * 合单关闭，子弹信息
+ * 合单关闭，子单信息
  */
 public class CloseSubOrder {
     /**

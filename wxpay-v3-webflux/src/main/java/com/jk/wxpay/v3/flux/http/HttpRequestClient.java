@@ -4,12 +4,10 @@ import com.jk.sdk.commons.reactor.RequestClient;
 import com.jk.sdk.commons.reactor.RequestMethod;
 import com.jk.wxpay.v3.commons.exception.StatusCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.JsonUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-
-
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -38,7 +36,7 @@ public class HttpRequestClient implements RequestClient {
         } else  if (requestMethod == requestMethod.DELETE) {
             return HttpMethod.DELETE;
         }
-        throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "unknown method");
+        throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "unknown method");
     }
 
     private WebClient.RequestBodySpec getRequestBodySpec(
@@ -75,7 +73,7 @@ public class HttpRequestClient implements RequestClient {
                 if (body instanceof String) {
                     bodyStr = (String) body;
                 } else {
-                    throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "Body format is not supported");
+                    throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "Body format is not supported");
                 }
             }
             requestBodySpec.bodyValue(bodyStr);
@@ -91,14 +89,13 @@ public class HttpRequestClient implements RequestClient {
             Map<String, String> headers,
             Object body) {
         WebClient.RequestBodySpec requestBodySpec = getRequestBodySpec(method, MediaType.APPLICATION_JSON, subPath, params, headers, body);
-
         return requestBodySpec
-                .exchange()
-                .flatMap(clientResponse -> {
-                    return clientResponse.bodyToMono(String.class).map(jstr -> {
-                        int st  = clientResponse.rawStatusCode();
-                        return new ResponseHolder(jstr, st);
-                    });
+                .exchangeToMono(clientResponse -> {
+                    return clientResponse.bodyToMono(String.class)
+                            .map(jstr -> {
+                                int st = clientResponse.rawStatusCode();
+                                return new ResponseHolder(jstr, st);
+                            });
                 })
                 .switchIfEmpty(Mono.just(new ResponseHolder(null, StatusCode.ST_NO_CONTENT)))
                 .flatMap(holder -> {
@@ -112,6 +109,8 @@ public class HttpRequestClient implements RequestClient {
                         }
                     }
                 });
+
+
     }
 
     @Override

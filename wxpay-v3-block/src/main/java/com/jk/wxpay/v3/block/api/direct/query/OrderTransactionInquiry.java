@@ -1,5 +1,6 @@
 package com.jk.wxpay.v3.block.api.direct.query;
 
+
 import com.jk.sdk.commons.block.ApiContext;
 import com.jk.wxpay.v3.block.api.SingleRequester;
 import com.jk.wxpay.v3.commons.bean.direct.result.OrderQueryResult;

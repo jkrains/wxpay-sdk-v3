@@ -1,22 +1,31 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.8.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.jk.wxpay'
-version = '0.0.1'
-sourceCompatibility = '1.8'
+version = '0.1.0'
+sourceCompatibility = '11'
 
 repositories {
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
     maven {
+        allowInsecureProtocol = true
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+    maven {
+        allowInsecureProtocol = true
         url "http://nexus.jikeyiyong.com/repository/maven-public/"
         credentials {
             username "jk-maven-caller"
             password "20200223maven"
         }
     }
+}
+
+ext {
+    sdk_commons_reactor_verison = "0.0.3"
+    sdk_commons_block_verison = "0.0.3"
 }
 
 dependencies {
@@ -27,10 +36,10 @@ dependencies {
 
     implementation project(':wxpay-v3-block')
     implementation project(':wxpay-v3-apache-httpclient')
-
-    implementation "com.jk.sdk:sdk-commons-block:0.0.2"
-    implementation "com.jk.sdk:sdk-commons-reactor:0.0.2"
-
+    
+    implementation "com.jk.sdk:sdk-commons-block:$sdk_commons_block_verison"
+    implementation "com.jk.sdk:sdk-commons-reactor:$sdk_commons_reactor_verison"
+    
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

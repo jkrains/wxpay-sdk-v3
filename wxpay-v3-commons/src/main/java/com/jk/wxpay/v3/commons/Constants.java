@@ -24,15 +24,19 @@ public interface Constants {
     /**
      * 合单支付
      */
-    /**
-     * 直连支付。
-     */
     String PATH_COMBINE_APP_PREPAY = "/v3/combine-transactions/app";
     String PATH_COMBINE_JSAPI_PREPAY = "/v3/combine-transactions/jsapi";
     String PATH_COMBINE_NATIVE_PREPAY = "/v3/combine-transactions/native";
     String PATH_COMBINE_H5_PREPAY = "/v3/combine-transactions/h5";
     String PATH_COMBINE_ORDER_GET_OUT_TRADE_NO = "/v3/pay/combine-transactions/out-trade-no";
     String PATH_COMBINE_ORDER_CLOSE = "/v3/pay/combine-transactions/out-trade-no";
+
+    /**
+     * 退款相关的接口。
+     */
+    String PATH_REFUND_DOMESTIC_REFUNDS = "/v3/refund/domestic/refunds";
+
+
     /**
      * wx 证书下载地址。
      */

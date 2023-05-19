@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.result;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 正常 预下单 返回结果。
@@ -11,7 +11,7 @@ public class PrepayResult {
      * 预支付交易会话标识。
      * 示例值：wx201410272009395522657a690389285100
      */
-    @SerializedName("prepay_id")
+    @JsonProperty("prepay_id")
     private String prepayId;
 
     public PrepayResult() {

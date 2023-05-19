@@ -1,10 +1,10 @@
 package com.jk.wxpay.v3.block.api;
 
+
 import com.jk.sdk.commons.block.ApiContext;
 import com.jk.sdk.commons.block.RequestMethod;
-import com.jk.sdk.commons.block.StringRequester;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.JsonUtils;
 
 import java.util.Map;
@@ -13,8 +13,10 @@ import java.util.Map;
  * Http请求的一个简单封装。 可以继承这个类完成一些操作。
  * 传递请求的body类型 和返回的类型。
  */
-public class SingleRequester<T, R> extends StringRequester {
+public class SingleRequester<T, R> {
 
+    private final ApiContext apiContext;
+    private final String path;
     private final Class<T> classT;
     private final Class<R> classR;
 
@@ -26,9 +28,18 @@ public class SingleRequester<T, R> extends StringRequester {
      * @param classR
      */
     public SingleRequester(ApiContext apiContext, String path, Class<T> classT, Class<R> classR) {
-        super(apiContext, path);
+        this.apiContext = apiContext;
+        this.path = path;
         this.classT = classT;
         this.classR = classR;
+    }
+
+    public ApiContext getApiContext() {
+        return apiContext;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public Class<T> getClassT() {
@@ -37,6 +48,24 @@ public class SingleRequester<T, R> extends StringRequester {
 
     public Class<R> getClassR() {
         return classR;
+    }
+
+    public String requestString(
+            RequestMethod method,
+            String subPath,
+            Map<String, Object> params,
+            Map<String, String> headers,
+            String body) {
+        if (this.apiContext != null && this.apiContext.available()) {
+            Object r = this.apiContext.getRequestClient().request(method, subPath, params, headers, body);
+            if (r instanceof String) {
+                return String.class.cast(r);
+            } else {
+                throw  new WxErrorException(WxErrorCode.NOT_SUPPORTED_TYPE, "returns not supported");
+            }
+        } else {
+            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "apiContext is invalid");
+        }
     }
 
     public R requestWithHeader(RequestMethod method,
@@ -49,7 +78,12 @@ public class SingleRequester<T, R> extends StringRequester {
             bodyStr = JsonUtils.toJson(body);
         }
 
-        String jstr = this.requestString(method, subPath, params, headers, bodyStr);
+        String finalPath = this.path;
+        if (subPath != null) {
+            finalPath = this.path + subPath;
+        }
+
+        String jstr = this.requestString(method, finalPath, params, headers, bodyStr);
         return JsonUtils.fromJson(jstr, this.classR);
     }
 

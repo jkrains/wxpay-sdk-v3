@@ -1,6 +1,7 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 描述订单金额
@@ -12,7 +13,8 @@ public class OrderAmount {
      * 当为合单支付时， 名称为 'total_amount'
      * [r]
      */
-    @SerializedName(value = "total", alternate = "total_amount")
+    @JsonProperty("total")
+    @JsonAlias("total_amount")
     private Integer total;
 
     /**

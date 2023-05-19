@@ -1,15 +1,16 @@
 package com.jk.wxpay.v3.commons.bean.combine;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jk.wxpay.v3.commons.bean.direct.OrderAmount;
 
 public class SubOrder {
+
     /**
      * 子单发起方商户号，必须与发起方appid有绑定关系。
      * 示例值：1900000109
      * [r]
      */
-    @SerializedName("mchid")
+    @JsonProperty("mchid")
     private String mchId;
 
     /**
@@ -30,7 +31,7 @@ public class SubOrder {
      * 示例值：20150806125346
      * [r]
      */
-    @SerializedName("out_trade_no")
+    @JsonProperty("out_trade_no")
     private String outTradeNo;
 
     /**
@@ -39,7 +40,7 @@ public class SubOrder {
      * 示例值：1900000109
      * [r]
      */
-    @SerializedName("sub_mchid")
+    @JsonProperty("sub_mchid")
     private String subMchId;
 
     /**
@@ -52,7 +53,7 @@ public class SubOrder {
      * 结算信息
      * [o]
      */
-    @SerializedName("settle_info")
+    @JsonProperty("settle_info")
     private SettleInfo settleInfo;
 
     public SubOrder() {

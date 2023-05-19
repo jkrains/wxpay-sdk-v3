@@ -4,13 +4,17 @@ plugins {
 }
 
 group 'com.jk.wxpay'
-version '0.0.1'
+version '0.2.3'
 
-sourceCompatibility = 1.8
+sourceCompatibility = '11'
 
 repositories {
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
     maven {
+        allowInsecureProtocol = true
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+    maven {
+        allowInsecureProtocol = true
         url "http://nexus.jikeyiyong.com/repository/maven-public/"
         credentials {
             username "jk-maven-caller"
@@ -18,29 +22,34 @@ repositories {
         }
     }
 }
+
 ext {
     junit_version = "4.12"
     logback_version = "1.2.3"
-    gson_version = "2.8.6"
-    sdk_commons_reactor_verison = "0.0.2"
+    jackson_version = "2.13.1"
+
+    web_flux_version = "5.3.16"
+    sdk_commons_reactor_verison = "0.0.3"
+    wxpay_commons_version = "0.2.1"
+    wxpay_reactor_version = "0.2.1"
 }
 
 dependencies {
-    implementation project(':wxpay-v3-commons')
-    implementation project(':wxpay-v3-reactor')
-    
+    implementation "com.jk.wxpay:wxpay-v3-commons:$wxpay_commons_version"
+    implementation "com.jk.wxpay:wxpay-v3-reactor:$wxpay_reactor_version"
+
     implementation "com.jk.sdk:sdk-commons-reactor:$sdk_commons_reactor_verison"
     implementation "ch.qos.logback:logback-classic:$logback_version"
-    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
 
-    implementation "org.springframework:spring-webflux:5.2.7.RELEASE"
+    implementation "org.springframework:spring-webflux:$web_flux_version"
     testImplementation "junit:junit:$junit_version"
 }
 
 // 上传source
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
-    classifier = 'sources'
+    archiveClassifier = 'sources'
 }
 
 //上传至nexus
@@ -56,6 +65,7 @@ publishing {
     }
     repositories {
         maven {
+            allowInsecureProtocol = true
             url "http://nexus.jikeyiyong.com/repository/maven-releases/"
             credentials {
                 username "maven-uploader"

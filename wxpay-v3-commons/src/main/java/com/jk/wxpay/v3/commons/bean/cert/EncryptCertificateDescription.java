@@ -1,23 +1,23 @@
 package com.jk.wxpay.v3.commons.bean.cert;
 
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 一个证书描述
  */
 public class EncryptCertificateDescription {
 
-    @SerializedName("serial_no")
+    @JsonProperty("serial_no")
     private String serialNo;
 
-    @SerializedName("effective_time")
+    @JsonProperty("effective_time")
     private String effectiveTime;
 
-    @SerializedName("expire_time")
+    @JsonProperty("expire_time")
     private String expireTime;
 
-    @SerializedName("encrypt_certificate")
+    @JsonProperty("encrypt_certificate")
     private EncryptCertificate encryptCertificate;
 
     public EncryptCertificateDescription() {

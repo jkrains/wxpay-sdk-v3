@@ -2,7 +2,7 @@ package com.jk.wxpay.v3.apache;
 
 import com.jk.wxpay.v3.block.MerchantPrivateKeyManager;
 import com.jk.wxpay.v3.commons.bean.MerchantPrivateKey;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.PemUtils;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class SimpleMerchantPrivateKeyManager implements MerchantPrivateKeyManage
 
             return this.mchPrivateKey;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | IllegalArgumentException | IOException e) {
-            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
         }
     }
 

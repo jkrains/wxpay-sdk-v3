@@ -1,7 +1,6 @@
 package com.jk.wxpay.v3.commons.util;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +44,18 @@ public class PemUtils {
       }
   }
 
+  public static PrivateKey loadPrivateKey(String privateK) throws NoSuchAlgorithmException, InvalidKeySpecException {
+      if (!StringUtils.isNullOrEmpty(privateK)) {
+          String privateKey = privateK.replace("-----BEGIN PRIVATE KEY-----", "")
+                  .replace("-----END PRIVATE KEY-----", "")
+                  .replaceAll("\\s+", "");
+          KeyFactory kf = KeyFactory.getInstance("RSA");
+          return kf.generatePrivate( new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
+      } else {
+          throw new IllegalArgumentException("cert is null");
+      }
+  }
+
   /**
    * 从输入流来加载生成X509证书。
    * @param inputStream
@@ -59,6 +70,22 @@ public class PemUtils {
           return cert;
       } else {
           throw new IllegalArgumentException("inputStream is null");
+      }
+  }
+
+    /**
+     * 从 string对象中加载。
+     * @param cert
+     * @return
+     * @throws CertificateException
+     * @throws IllegalArgumentException
+     */
+  public static X509Certificate loadCertificate(String cert) throws CertificateException, IllegalArgumentException  {
+      try {
+          InputStream inputStream = new ByteArrayInputStream(cert.getBytes());
+          return loadCertificate(inputStream);
+      } catch (Exception e) {
+          throw e;
       }
   }
 }

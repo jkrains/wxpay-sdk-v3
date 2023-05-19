@@ -3,13 +3,13 @@ package com.jk.wxpay.v3.block.api.combine;
 import com.jk.sdk.commons.block.ApiContext;
 import com.jk.wxpay.v3.block.api.SingleRequester;
 import com.jk.wxpay.v3.commons.Constants;
-import com.jk.wxpay.v3.commons.bean.combine.SubOrderCloseInfo;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
+import com.jk.wxpay.v3.commons.bean.combine.SubOrderCloseParams;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
 
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createHeadersWith;
 import static com.jk.wxpay.v3.commons.util.RequestUtils.createParamsWith;
 
-public class COrderClosure extends SingleRequester<SubOrderCloseInfo, Void> {
+public class COrderClosure extends SingleRequester<SubOrderCloseParams, Void> {
 
     /**
      * 构造方法。
@@ -17,7 +17,7 @@ public class COrderClosure extends SingleRequester<SubOrderCloseInfo, Void> {
      * @param apiContext
      */
     public COrderClosure(ApiContext apiContext) {
-        super(apiContext, Constants.PATH_COMBINE_ORDER_CLOSE, SubOrderCloseInfo.class, Void.class);
+        super(apiContext, Constants.PATH_COMBINE_ORDER_CLOSE, SubOrderCloseParams.class, Void.class);
     }
 
     /**
@@ -27,7 +27,7 @@ public class COrderClosure extends SingleRequester<SubOrderCloseInfo, Void> {
      * @param subOrderCloseInfo 需要关闭得子订单
      * @return
      */
-    public void close(String mchid, String outTradeNo, SubOrderCloseInfo subOrderCloseInfo) throws WxPayException {
+    public void close(String mchid, String outTradeNo, SubOrderCloseParams subOrderCloseInfo) throws WxErrorException {
         String subPath = "/" + outTradeNo + "/close";
         super.post(subPath, createParamsWith(mchid), createHeadersWith(mchid), subOrderCloseInfo);
     }

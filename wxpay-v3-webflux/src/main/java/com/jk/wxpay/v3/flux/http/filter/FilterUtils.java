@@ -1,8 +1,9 @@
 package com.jk.wxpay.v3.flux.http.filter;
 
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
-import com.jk.wxpay.v3.commons.util.ValidationUtil;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
+
+import com.jk.wxpay.v3.commons.util.VerificationUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
@@ -83,23 +84,22 @@ public class FilterUtils {
             String nonce = headers.getFirst(H_W_NONCE);
             String serial = headers.getFirst(H_W_SERIAL);
             String signature = headers.getFirst(H_W_SIGNATURE);
-            return response.bodyToMono(String.class).map(body -> {
-                if (body == null) {
-                    body = "";
-                }
+            return response.bodyToMono(String.class)
+                    .switchIfEmpty(Mono.just(""))
+                    .map(body -> {
                 try {
-                    boolean valid = ValidationUtil.validate(certificate, timestamp, nonce, body, signature);
+                    boolean valid = VerificationUtils.verify(certificate, timestamp, nonce, body, signature);
                     if (valid) {
                         return ClientResponse.create(response.statusCode()).body(body).build();
                     } else {
-                        throw new WxPayException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
+                        throw new WxErrorException(WxErrorCode.WX_RESPONSE_INVALID, "Validate failed");
                     }
                 } catch (NoSuchAlgorithmException e) {
-                    throw new WxPayException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
+                    throw new WxErrorException(WxErrorCode.NO_SUCH_ALGORITHM, e.getMessage());
                 } catch (InvalidKeyException e) {
-                    throw new WxPayException(WxErrorCode.INVALID_KEY, e.getMessage());
+                    throw new WxErrorException(WxErrorCode.INVALID_KEY, e.getMessage());
                 } catch (SignatureException e) {
-                    throw new WxPayException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
+                    throw new WxErrorException(WxErrorCode.SIGNATURE_EXCEPTION, e.getMessage());
                 }
             });
         });

@@ -4,7 +4,7 @@ import com.jk.sdk.commons.block.RequestClient;
 import com.jk.sdk.commons.block.RequestMethod;
 import com.jk.wxpay.v3.commons.exception.StatusCode;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
 import com.jk.wxpay.v3.commons.util.JsonUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.*;
@@ -71,11 +71,11 @@ public class HttpRequestClient implements RequestClient {
                 throw JsonUtils.parseError(statusCode, error);
             }
         } catch (URISyntaxException e ) {
-            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
         } catch (ClientProtocolException e) {
-            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
         } catch (IOException e) {
-            throw new WxPayException(e.getClass().getSimpleName(), e.getMessage());
+            throw new WxErrorException(e.getClass().getSimpleName(), e.getMessage());
         }
     }
 
@@ -108,7 +108,7 @@ public class HttpRequestClient implements RequestClient {
             HttpDelete httpDelete = new HttpDelete(uri);
             request = httpDelete;
         } else {
-            throw new WxPayException(WxErrorCode.ILLEGAL_ARG, "unknown method");
+            throw new WxErrorException(WxErrorCode.ILLEGAL_ARG, "unknown method");
         }
 
         return request;

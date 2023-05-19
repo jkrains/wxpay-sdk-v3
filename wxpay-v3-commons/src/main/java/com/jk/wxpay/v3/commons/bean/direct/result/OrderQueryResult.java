@@ -1,6 +1,7 @@
 package com.jk.wxpay.v3.commons.bean.direct.result;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jk.wxpay.v3.commons.bean.direct.*;
 import com.jk.wxpay.v3.commons.bean.direct.query.QueryOrderAmount;
 
@@ -12,54 +13,11 @@ import java.util.List;
 public class OrderQueryResult {
 
     /**
-     * TradeType的枚举定义
-     */
-    public enum TradeType {
-
-        JSAPI("JSAPI"),
-        NATIVE("NATIVE"),
-        APP("APP"),
-        MICROPAY("MICROPAY"),
-        MWEB("MWEB"),
-        FACEPAY("FACEPAY");
-
-        private String name;
-        TradeType(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
-
-    /**
-     * TradeState的枚举定义
-     */
-    public enum TradeState {
-        SUCCESS("SUCCESS"),
-        REFUND("REFUND"),
-        NOTPAY("NOTPAY"),
-        CLOSED("CLOSED"),
-        REVOKED("REVOKED"),
-        USERPAYING("USERPAYING"),
-        PAYERROR("PAYERROR");
-
-        TradeState(String name) {
-            this.name = name;
-        }
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-    }
-    /**
      * 直连商户申请的公众号或移动应用appid。
      * 示例值：wxd678efh567hg6787
      * [r]
      */
-    @SerializedName("appid")
+    @JsonProperty("appid")
     private String appId;
 
     /**
@@ -67,7 +25,7 @@ public class OrderQueryResult {
      * 示例值：1230000109
      * [r]
      */
-    @SerializedName("mchid")
+    @JsonProperty("mchid")
     private String mchId;
 
     /**
@@ -75,7 +33,7 @@ public class OrderQueryResult {
      * 示例值：1217752501201407033233368018
      * [r]
      */
-    @SerializedName("out_trade_no")
+    @JsonProperty("out_trade_no")
     private String outTradeNo;
 
     /**
@@ -83,7 +41,7 @@ public class OrderQueryResult {
      * 示例值：1217752501201407033233368018
      * [o]
      */
-    @SerializedName("transaction_id")
+    @JsonProperty("transaction_id")
     private String transactionId;
 
     /**
@@ -97,7 +55,7 @@ public class OrderQueryResult {
      * 示例值：MICROPAY
      * [r]
      */
-    @SerializedName("trade_type")
+    @JsonProperty("trade_type")
     private String tradeType;
 
     /**
@@ -112,7 +70,7 @@ public class OrderQueryResult {
      * 示例值：SUCCESS
      * [r]
      */
-    @SerializedName("trade_state")
+    @JsonProperty("trade_state")
     private String tradeState;
 
     /**
@@ -120,7 +78,7 @@ public class OrderQueryResult {
      * 示例值：支付失败，请重新下单支付
      * [r]
      */
-    @SerializedName("trade_state_desc")
+    @JsonProperty("trade_state_desc")
     private String tradeStateDesc;
 
     /**
@@ -128,7 +86,7 @@ public class OrderQueryResult {
      * 示例值：CMC
      * [o]
      */
-    @SerializedName("bank_type")
+    @JsonProperty("bank_type")
     private String bankType;
 
     /**
@@ -146,14 +104,15 @@ public class OrderQueryResult {
      * 示例值：2018-06-08T10:34:56+08:00
      * [o]
      */
-    @SerializedName("success_time")
+    @JsonProperty("success_time")
     private String successTime;
 
     /**
      * 支付者信息, 当这个数据结构被映射成 回调通知结果时， 选用alternate 指向的名称
      * [r]
      */
-    @SerializedName(value = "player", alternate = "combine_payer_info")
+    @JsonProperty("player")
+    @JsonAlias("combine_payer_info")
     private PayPlayer player;
 
     /**
@@ -166,14 +125,14 @@ public class OrderQueryResult {
      * 支付场景描述
      * [o]
      */
-    @SerializedName("scene_info")
+    @JsonProperty("scene_info")
     private SceneInfo sceneInfo;
 
     /**
      * 优惠功能，享受优惠时返回该字段。
      * [o]
      */
-    @SerializedName("promotion_detail")
+    @JsonProperty("promotion_detail")
     private List<PromotionDetail> promotionDetail;
 
     public OrderQueryResult() {

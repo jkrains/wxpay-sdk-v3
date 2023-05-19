@@ -6,6 +6,7 @@ import java.security.SecureRandom;
  * 字符串的一些处理
  */
 public class StringUtils {
+
     private static final String SYMBOLS =
             "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final SecureRandom RANDOM = new SecureRandom();
@@ -31,5 +32,9 @@ public class StringUtils {
      */
     public static String generateNonceStr() {
         return generateRandomString(32);
+    }
+
+    public static boolean isNullOrEmpty(String text) {
+        return text == null || text.equals("");
     }
 }

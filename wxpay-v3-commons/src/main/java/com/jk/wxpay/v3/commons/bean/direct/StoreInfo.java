@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 商户门店信息
@@ -21,7 +21,7 @@ public class StoreInfo {
     /**
      * 地区编码，详细请见省市区编号对照表。
      */
-    @SerializedName("area_code")
+    @JsonProperty("area_code")
     private String areaCode;
 
     /**

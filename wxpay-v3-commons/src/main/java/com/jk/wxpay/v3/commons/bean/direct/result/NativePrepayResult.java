@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.result;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Native 支付的返回结果。
@@ -12,7 +12,7 @@ public class NativePrepayResult {
      * 注意：code_url并非固定值，使用时按照URL格式转成二维码即可。
      * 示例值：weixin://wxpay/bizpayurl/up?pr=NwY5Mz9&groupid=00
      */
-    @SerializedName("code_url")
+    @JsonProperty("code_url")
     private String codeUrl;
 
     public NativePrepayResult() {

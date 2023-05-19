@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.notify;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 通知资源数据
@@ -15,17 +15,23 @@ public class PrepayNotifyResource {
     private String algorithm;
 
     /**
+     * 加密前的对象类型，退款通知的类型为refund
+     * 示例值：refund
+     */
+    private String originalType;
+
+    /**
      * Base64编码后的开启/停用结果数据密文
      * 示例值：sadsadsadsad
      */
-    @SerializedName("ciphertext")
+    @JsonProperty("ciphertext")
     private String cipherText;
 
     /**
      * 附加数据
      * 示例值：fdasfwqewlkja484w
      */
-    @SerializedName("associated_data")
+    @JsonProperty("associated_data")
     private String associatedData;
 
     /**
@@ -49,6 +55,15 @@ public class PrepayNotifyResource {
 
     public PrepayNotifyResource setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
+        return this;
+    }
+
+    public String getOriginalType() {
+        return originalType;
+    }
+
+    public PrepayNotifyResource setOriginalType(String originalType) {
+        this.originalType = originalType;
         return this;
     }
 

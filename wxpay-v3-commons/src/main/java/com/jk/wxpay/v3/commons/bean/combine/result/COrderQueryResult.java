@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.combine.result;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jk.wxpay.v3.commons.bean.direct.PayPlayer;
 import com.jk.wxpay.v3.commons.bean.direct.SceneInfo;
 
@@ -13,39 +13,39 @@ public class COrderQueryResult {
      * 合单发起方的appid。
      * 示例值：wxd678efh567hg6787
      */
-    @SerializedName("combine_appid")
+    @JsonProperty("combine_appid")
     private String combineAppId;
 
     /**
      * 合单发起方商户号。
      * 示例值：1900000109
      */
-    @SerializedName("combine_mchid")
+    @JsonProperty("combine_mchid")
     private String combineMchId;
 
     /**
      * 合单支付总订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。
      * 示例值：P20150806125346
      */
-    @SerializedName("combine_out_trade_no")
+    @JsonProperty("combine_out_trade_no")
     private String combineOutTradeNo;
 
     /**
      * 支付场景信息描述
      */
-    @SerializedName("scene_info")
+    @JsonProperty("scene_info")
     private SceneInfo sceneInfo;
 
     /**
      * 最多支持子单条数：50
      */
-    @SerializedName("sub_orders")
+    @JsonProperty("sub_orders")
     private SubOrderResult subOrders;
 
     /**
      * 示例值：见请求示例
      */
-    @SerializedName("combine_payer_info")
+    @JsonProperty("combine_payer_info")
     private PayPlayer combinePayerInfo;
 
     public COrderQueryResult() {

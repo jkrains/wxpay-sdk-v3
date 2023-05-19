@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 场景信息支付场景描述
@@ -11,7 +11,7 @@ public class SceneInfo {
      * 示例值：14.23.150.211
      * [r]
      */
-    @SerializedName("player_client_ip")
+    @JsonProperty("player_client_ip")
     private String playerClientIp;
 
     /**
@@ -19,14 +19,14 @@ public class SceneInfo {
      * 示例值：013467007045764
      * [o]
      */
-    @SerializedName("device_id")
+    @JsonProperty("device_id")
     private String deviceId;
 
     /**
      * 商户门店信息
      * [o]
      */
-    @SerializedName("store_info")
+    @JsonProperty("store_info")
     private StoreInfo storeInfo;
 
     public SceneInfo(String playerClientIp, String deviceId, StoreInfo storeInfo) {

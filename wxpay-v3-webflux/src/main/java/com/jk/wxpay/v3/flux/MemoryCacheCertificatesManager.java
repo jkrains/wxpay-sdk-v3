@@ -3,12 +3,10 @@ package com.jk.wxpay.v3.flux;
 import com.jk.sdk.commons.reactor.ApiContext;
 import com.jk.wxpay.v3.commons.cert.CertificatesDecoder;
 import com.jk.wxpay.v3.commons.exception.WxErrorCode;
-import com.jk.wxpay.v3.commons.exception.WxPayException;
-import com.jk.wxpay.v3.flux.http.ApiContextBuilder;
-import com.jk.wxpay.v3.reactor.MerchantPrivateKeyManager;
-import com.jk.wxpay.v3.reactor.WxCertificatesManager;
-import com.jk.wxpay.v3.reactor.api.CertificatesDownloader;
+import com.jk.wxpay.v3.commons.exception.WxErrorException;
+import com.jk.wxpay.v3.flux.http.HttpApiContextBuilder;
 
+import com.jk.wxpay.v3.reactor.api.CertificatesDownloader;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -35,7 +33,7 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
 
     public MemoryCacheCertificatesManager(MerchantPrivateKeyManager privateKeyManager) {
         this.privateKeyManager = privateKeyManager;
-        ApiContext apiContext = new ApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager).build();
+        ApiContext apiContext = new HttpApiContextBuilder().setMerchantPrivateKeyManager(privateKeyManager).build();
         this.certificatesDownloader = new CertificatesDownloader(apiContext);
     }
 
@@ -65,7 +63,7 @@ public class MemoryCacheCertificatesManager implements WxCertificatesManager {
             if (certificate != null) {
                 return certificate;
             } else {
-                throw new WxPayException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
+                throw new WxErrorException(WxErrorCode.NOT_FOUND_RESOURCE, "cannot get certificates");
             }
         });
     }

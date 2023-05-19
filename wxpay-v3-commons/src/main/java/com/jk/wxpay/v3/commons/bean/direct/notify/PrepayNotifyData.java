@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct.notify;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 预支付回调通知数据。微信主动通知发起端的数据结构
@@ -15,21 +15,21 @@ public class PrepayNotifyData {
     /**
      * 示例值：2015-05-20T13:29:35+08:00
      */
-    @SerializedName("create_time")
+    @JsonProperty("create_time")
     private String createTime;
 
     /**
      * 通知的类型，支付成功通知的类型为TRANSACTION.SUCCESS
      * 示例值：TRANSACTION.SUCCESS
      */
-    @SerializedName("event_type")
+    @JsonProperty("event_type")
     private String eventType;
 
     /**
      * 通知的资源数据类型，支付成功通知为encrypt-resource
      * 示例值：encrypt-resource
      */
-    @SerializedName("resource_type")
+    @JsonProperty("resource_type")
     private String resourceType;
 
     /**

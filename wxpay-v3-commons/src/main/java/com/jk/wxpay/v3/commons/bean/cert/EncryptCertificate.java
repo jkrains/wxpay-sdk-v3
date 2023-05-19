@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.cert;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EncryptCertificate {
 
@@ -8,10 +8,10 @@ public class EncryptCertificate {
 
     private String nonce;
 
-    @SerializedName("associated_data")
+    @JsonProperty("associated_data")
     private String associatedData;
 
-    @SerializedName("ciphertext")
+    @JsonProperty("ciphertext")
     private String cipherText;
 
     public EncryptCertificate() {

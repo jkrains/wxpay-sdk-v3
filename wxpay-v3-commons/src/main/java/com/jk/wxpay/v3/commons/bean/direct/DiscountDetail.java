@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 优惠功能
@@ -13,7 +13,7 @@ public class DiscountDetail {
      * 示例值：608800
      * [o]
      */
-    @SerializedName("cost_price")
+    @JsonProperty("cost_price")
     private Integer costPrice;
 
     /**
@@ -21,7 +21,7 @@ public class DiscountDetail {
      * 示例值：微信123
      * [o]
      */
-    @SerializedName("invoice_id")
+    @JsonProperty("invoice_id")
     private String InvoiceId;
 
     /**
@@ -29,7 +29,7 @@ public class DiscountDetail {
      * 条目个数限制：【1，undefined】
      * [o]
      */
-    @SerializedName("goods_detail")
+    @JsonProperty("goods_detail")
     private GoodsDetail goodsDetail;
 
     public DiscountDetail(Integer costPrice, String invoiceId) {

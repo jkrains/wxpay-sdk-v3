@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.combine;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 结算信息。
@@ -13,7 +13,7 @@ public class SettleInfo {
      * 示例值：true
      * [o]
      */
-    @SerializedName("profit_sharing")
+    @JsonProperty("profit_sharing")
     private Boolean profitSharing;
 
     /**
@@ -22,7 +22,7 @@ public class SettleInfo {
      * 示例值：10
      * [o]
      */
-    @SerializedName("subsidy_amount")
+    @JsonProperty("subsidy_amount")
     private Long subsidyAmount;
 
     public SettleInfo() {

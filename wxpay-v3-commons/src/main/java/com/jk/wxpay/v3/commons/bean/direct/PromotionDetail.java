@@ -1,6 +1,6 @@
 package com.jk.wxpay.v3.commons.bean.direct;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jk.wxpay.v3.commons.bean.direct.query.QueryGoodsDetail;
 
 /**
@@ -12,7 +12,7 @@ public class PromotionDetail {
      * 示例值：109519
      * [r]
      */
-    @SerializedName("coupon_id")
+    @JsonProperty("coupon_id")
     private String couponId;
 
     /**
@@ -50,7 +50,7 @@ public class PromotionDetail {
      * 示例值：931386
      * [o]
      */
-    @SerializedName("stock_id")
+    @JsonProperty("stock_id")
     private String stockId;
 
     /**
@@ -58,7 +58,7 @@ public class PromotionDetail {
      * 示例值：0
      * [o]
      */
-    @SerializedName("wechatpay_contribute")
+    @JsonProperty("wechatpay_contribute")
     private Integer wechatPayContribute;
 
     /**
@@ -66,7 +66,7 @@ public class PromotionDetail {
      * 示例值：0
      * [o]
      */
-    @SerializedName("merchant_contribute")
+    @JsonProperty("merchant_contribute")
     private Integer merchantContribute;
 
     /**
@@ -74,7 +74,7 @@ public class PromotionDetail {
      * 示例值：0
      * [o]
      */
-    @SerializedName("other_contribute")
+    @JsonProperty("other_contribute")
     private Integer otherContribute;
 
     /**
@@ -88,7 +88,7 @@ public class PromotionDetail {
      *单品列表信息
      * [o]
      */
-    @SerializedName("goods_detail")
+    @JsonProperty("goods_detail")
     private QueryGoodsDetail goodsDetail;
 
     public PromotionDetail() {
